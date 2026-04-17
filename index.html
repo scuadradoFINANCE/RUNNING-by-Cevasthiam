@@ -519,7 +519,7 @@ tailwind.config = {
             <div class="grid grid-cols-3 gap-3 mb-3">
               <div>
                 <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Cant. series</label>
-                <input type="number" id="f-rep-count" placeholder="5" min="1" max="20" class="w-full bg-white border-0 border-b-2 border-orange-200 px-3 py-2 rounded-t-lg text-sm font-bold text-on-surface placeholder:text-on-surface-variant/30" oninput="updateRepRows()"/>
+                <input type="number" id="f-rep-count" placeholder="5" min="1" max="20" class="w-full bg-white border-0 border-b-2 border-orange-200 px-3 py-2 rounded-t-lg text-sm font-bold text-on-surface placeholder:text-on-surface-variant/30" oninput="updateRepRows()" onchange="updateRepRows()"/>
               </div>
               <div>
                 <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Duración c/u</label>
@@ -531,9 +531,12 @@ tailwind.config = {
               </div>
             </div>
             <div id="rep-rows-wrap" class="hidden">
-              <div class="flex items-center justify-between mb-2">
-                <label class="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant">Ritmo alcanzado por serie (mm:ss/km)</label>
-                <span class="text-[9px] text-on-surface-variant/50">→ distancia calculada</span>
+              <div class="flex items-center justify-between mb-3 pt-2 border-t border-orange-200">
+                <div>
+                  <p class="text-[10px] font-bold tracking-widest uppercase text-orange-700">Ritmo en cada serie fuerte</p>
+                  <p class="text-[9px] text-on-surface-variant/50 mt-0.5">Distancia calculada automáticamente</p>
+                </div>
+                <span class="text-[9px] text-orange-500 font-bold bg-orange-100 px-2 py-1 rounded-full" id="rep-avg-label"></span>
               </div>
               <div id="rep-rows" class="space-y-2"></div>
             </div>
@@ -1330,19 +1333,46 @@ function updateRepRows(){
   if(n<1||n>20){wrap.classList.add('hidden');return;}
   wrap.classList.remove('hidden');
   cont.innerHTML=Array.from({length:n},(_,i)=>
-    `<div class="flex items-center gap-2.5">
-      <span class="text-[9px] font-black text-orange-600 bg-orange-100 rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">${i+1}</span>
-      <input type="text" id="rep-pace-${i}" placeholder="4:10" class="flex-1 bg-white border-0 border-b-2 border-orange-200 px-2 py-2 rounded-t-md text-sm font-bold text-on-surface placeholder:text-on-surface-variant/30" oninput="updateRepCalc(${i})"/>
-      <span class="text-[10px] text-on-surface-variant/60 w-16 text-right" id="rep-dist-${i}"></span>
+    `<div class="flex items-center gap-3 bg-white rounded-xl px-3 py-2.5 border border-orange-100">
+      <span class="text-xs font-black text-orange-500 bg-orange-100 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">${i+1}</span>
+      <div class="flex-1">
+        <input type="text" id="rep-pace-${i}" placeholder="4:10"
+          class="w-full bg-transparent border-0 border-b border-orange-200 pb-0.5 text-sm font-black text-on-surface placeholder:text-on-surface-variant/30 focus:border-orange-400 focus:outline-none"
+          oninput="updateRepCalc(${i})"/>
+        <div class="text-[9px] text-on-surface-variant/40 mt-0.5">mm:ss / km</div>
+      </div>
+      <div class="text-right flex-shrink-0 min-w-[60px]">
+        <div class="text-sm font-black text-orange-600" id="rep-dist-${i}"></div>
+        <div class="text-[9px] text-on-surface-variant/40" id="rep-dist-lbl-${i}"></div>
+      </div>
     </div>`
   ).join('');
 }
 function updateRepCalc(i){
   const durSec=paceToSec(document.getElementById('f-rep-dur').value);
-  const paceSec=paceToSec(document.getElementById(`rep-pace-${i}`).value);
-  const distEl=document.getElementById(`rep-dist-${i}`);
-  if(durSec>0&&paceSec>0){ distEl.textContent=Math.round((durSec/paceSec)*1000)+' m'; }
-  else distEl.textContent='';
+  const paceSec=paceToSec(document.getElementById('rep-pace-'+i).value);
+  const distEl=document.getElementById('rep-dist-'+i);
+  const lblEl=document.getElementById('rep-dist-lbl-'+i);
+  if(durSec>0&&paceSec>0){
+    const distM=Math.round((durSec/paceSec)*1000);
+    distEl.textContent=distM+'m';
+    lblEl.textContent='distancia';
+  } else {
+    if(distEl) distEl.textContent='';
+    if(lblEl) lblEl.textContent='';
+  }
+  const n=parseInt(document.getElementById('f-rep-count').value)||0;
+  const paces=Array.from({length:n},(_,j)=>{
+    const el=document.getElementById('rep-pace-'+j);
+    return el?paceToSec(el.value):0;
+  }).filter(p=>p>0);
+  const avgEl=document.getElementById('rep-avg-label');
+  if(avgEl&&paces.length>0){
+    const avg=paces.reduce((a,b)=>a+b,0)/paces.length;
+    avgEl.textContent='Prom: '+secToPace(avg)+'/km';
+  } else if(avgEl){
+    avgEl.textContent='';
+  }
 }
 function buildFartlekStructure(){
   const desc=document.getElementById('f-struct-desc').value.trim();
