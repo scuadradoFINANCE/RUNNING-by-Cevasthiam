@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SLIPSTREAM · 21K Buenos Aires</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface-container": "#e6eeff",
+        "secondary-container": "#b8ebf7",
+        "error-container": "#ffdad6",
+        "secondary-fixed-dim": "#9dcfda",
+        "secondary-fixed": "#b8ebf7",
+        "on-error-container": "#93000a",
+        "secondary": "#33656f",
+        "surface-container-high": "#dee9fc",
+        "surface-container-low": "#eff4ff",
+        "on-tertiary-fixed": "#2a1800",
+        "on-tertiary-container": "#6e4600",
+        "surface-container-highest": "#d9e3f6",
+        "on-error": "#ffffff",
+        "primary-fixed-dim": "#2fd9f4",
+        "surface-dim": "#d0dbed",
+        "surface-variant": "#d9e3f6",
+        "primary-fixed": "#a2eeff",
+        "tertiary-fixed": "#ffddb5",
+        "inverse-on-surface": "#eaf1ff",
+        "on-secondary-fixed": "#001f25",
+        "error": "#ba1a1a",
+        "surface": "#f8f9ff",
+        "outline": "#6c797d",
+        "on-tertiary": "#ffffff",
+        "tertiary": "#835400",
+        "on-secondary": "#ffffff",
+        "on-tertiary-fixed-variant": "#643f00",
+        "background": "#f8f9ff",
+        "on-primary-fixed-variant": "#004e5a",
+        "inverse-surface": "#27313f",
+        "tertiary-container": "#ffb13b",
+        "tertiary-fixed-dim": "#ffb957",
+        "on-secondary-fixed-variant": "#184d57",
+        "surface-bright": "#f8f9ff",
+        "on-secondary-container": "#3a6b76",
+        "inverse-primary": "#2fd9f4",
+        "on-primary": "#ffffff",
+        "primary": "#006877",
+        "primary-container": "#22d3ee",
+        "outline-variant": "#bbc9cd",
+        "surface-container-lowest": "#ffffff",
+        "on-surface-variant": "#3c494c",
+        "on-primary-fixed": "#001f25",
+        "surface-tint": "#006877",
+        "on-surface": "#121c2a",
+        "on-primary-container": "#005763",
+        "on-background": "#121c2a"
+      },
+      borderRadius: { DEFAULT:"0.25rem", lg:"0.5rem", xl:"0.75rem", full:"9999px" },
+      fontFamily: { headline:["Inter"], body:["Inter"], label:["Inter"] }
+    }
+  }
+}
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+  body { font-family:'Inter',sans-serif; min-height: max(884px, 100dvh); }
+  .active-pill { background: linear-gradient(135deg, #006877 0%, #22d3ee 100%); }
+  .glass { backdrop-filter: blur(24px); }
+  .zone-glow { box-shadow: 0 0 8px rgba(34,211,238,0.5); }
+
+  /* Animated entry */
+  @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+  .slide-up { animation: slideUp .35s ease both; }
+  .delay-1 { animation-delay:.05s; }
+  .delay-2 { animation-delay:.1s; }
+  .delay-3 { animation-delay:.15s; }
+  .delay-4 { animation-delay:.2s; }
+
+  /* Nav active state */
+  .nav-active { color: #22d3ee; background: rgba(34,211,238,0.1); border-radius: 0.75rem; }
+
+  /* Canvas tooltip */
+  #canvas-prog { cursor: crosshair; }
+
+  /* Input focus accent */
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #006877 !important;
+    box-shadow: 0 2px 0 0 #006877;
+  }
+
+  /* Zone bars */
+  .zone-bar { transition: width .6s cubic-bezier(.34,1.56,.64,1); }
+
+  /* Sync pulse */
+  @keyframes syncPulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .syncing { animation: syncPulse .8s ease-in-out infinite; }
+
+  /* Phase progress fill */
+  .phase-fill { transition: width .8s ease; }
+</style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+
+<!-- ══ CONFIG ══════════════════════════════════════════════ -->
+<script>
+  // ↓↓↓ REEMPLAZÁ CON TU URL DE DEPLOYMENT ↓↓↓
+  const GAS_URL = "TU_URL_DE_DEPLOYMENT_ACÁ";
+
+  const PLAN_START  = new Date("2026-04-14");
+  const RACE_DATE   = new Date("2026-08-25");
+  const TOTAL_WEEKS = 18;
+
+  const PHASES = [
+    { end:4,  label:"Base",        full:"Fase 1 — Adaptación",    color:"from-primary/20 to-primary/40" },
+    { end:8,  label:"Build",       full:"Fase 2 — Construcción",   color:"from-primary/40 to-primary" },
+    { end:13, label:"Peak",        full:"Fase 3 — Resistencia",    color:"from-primary/60 to-primary" },
+    { end:18, label:"Taper",       full:"Fase 4 — Específico 21K", color:"from-primary to-primary-container" }
+  ];
+
+  const TYPE_META = {
+    fondo:     { label:"Fondo largo",         icon:"route",        color:"emerald" },
+    rodaje:    { label:"Rodaje Z2",            icon:"directions_run",color:"cyan"   },
+    fartlek:   { label:"Fartlek / Intervalos", icon:"timer",        color:"orange"  },
+    movilidad: { label:"Movilidad / Core",     icon:"self_improvement",color:"violet"},
+    carrera:   { label:"Carrera",              icon:"emoji_events", color:"rose"    }
+  };
+
+  const TYPE_COLORS = {
+    fondo:     "bg-emerald-100 text-emerald-600",
+    rodaje:    "bg-cyan-100 text-cyan-600",
+    fartlek:   "bg-orange-100 text-orange-500",
+    movilidad: "bg-violet-100 text-violet-600",
+    carrera:   "bg-rose-100 text-rose-600"
+  };
+
+  const TYPE_BADGE = {
+    fondo:     "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+    rodaje:    "bg-cyan-50 text-cyan-700 ring-1 ring-cyan-200",
+    fartlek:   "bg-orange-50 text-orange-700 ring-1 ring-orange-200",
+    movilidad: "bg-violet-50 text-violet-700 ring-1 ring-violet-200",
+    carrera:   "bg-rose-50 text-rose-700 ring-1 ring-rose-200"
+  };
+
+  const ZONE_COLORS = ["#22c55e","#84cc16","#eab308","#f97316","#ef4444"];
+  const ZONE_GLOWS  = ["rgba(34,197,94,.4)","rgba(132,204,22,.4)","rgba(234,179,8,.4)","rgba(249,115,22,.4)","rgba(239,68,68,.4)"];
+</script>
+
+<!-- ══ TOP APP BAR ═════════════════════════════════════════ -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/70 backdrop-blur-xl shadow-[0_12px_32px_rgba(18,28,42,0.06)] font-['Inter'] antialiased tracking-tight">
+  <div class="flex justify-between items-center px-6 h-16 w-full max-w-5xl mx-auto">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-sm" style="font-size:16px">directions_run</span>
+      </div>
+      <span class="text-lg font-black tracking-tighter text-slate-900">SLIPSTREAM</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-low rounded-full">
+        <div class="w-2 h-2 rounded-full bg-emerald-400" id="sync-dot"></div>
+        <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider" id="sync-label">Sin conectar</span>
+      </div>
+      <button onclick="loadSessions()" class="material-symbols-outlined text-slate-500 hover:text-primary hover:rotate-180 transition-all duration-300 active:scale-95">sync</button>
+    </div>
+  </div>
+</header>
+
+<!-- ══ MAIN ════════════════════════════════════════════════ -->
+<main class="pt-20 pb-32 px-4 max-w-5xl mx-auto">
+
+  <!-- ── HERO COUNTDOWN ──────────────────────────────────── -->
+  <section class="py-6 slide-up">
+    <div class="flex justify-between items-start">
+      <div>
+        <p class="text-[10px] font-bold tracking-[0.05rem] uppercase text-primary mb-1">Plan activo · 21K Buenos Aires</p>
+        <h1 class="text-4xl font-extrabold tracking-tighter text-on-surface leading-none">
+          Sub <span class="text-primary">1:40</span>
+        </h1>
+        <p class="text-xs text-on-surface-variant mt-1 font-medium">25 agosto 2026 · objetivo 4'44&quot;/km</p>
+      </div>
+      <div class="text-right">
+        <div class="text-5xl font-black tracking-tighter text-on-surface" id="wl-num">—</div>
+        <div class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase">semanas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 18-WEEK PROGRESSION ─────────────────────────────── -->
+  <section class="mb-6 slide-up delay-1">
+    <div class="flex justify-between items-end mb-3">
+      <h2 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant">18-Week Progression</h2>
+      <span class="text-xs text-primary font-bold" id="phase-week-label">Sem 1 · Base</span>
+    </div>
+    <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+      <div class="grid grid-cols-4 gap-1 h-3 rounded-full overflow-hidden bg-surface-container-low mb-3">
+        <div class="bg-primary/20 h-full relative" id="phase-seg-0">
+          <div class="absolute -top-1 left-0 h-5 w-1 bg-primary rounded-full"></div>
+        </div>
+        <div class="bg-surface-container-high h-full relative" id="phase-seg-1"></div>
+        <div class="bg-surface-container-high h-full relative" id="phase-seg-2"></div>
+        <div class="bg-surface-container-highest h-full relative" id="phase-seg-3"></div>
+      </div>
+      <!-- Phase progress sub-bar -->
+      <div class="w-full h-1 bg-surface-container rounded-full overflow-hidden mb-3">
+        <div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full phase-fill" id="phase-prog" style="width:0%"></div>
+      </div>
+      <div class="flex justify-between text-[10px] font-bold tracking-wider text-on-surface-variant uppercase">
+        <span class="text-primary" id="ph-0">Base</span>
+        <span id="ph-1">Build</span>
+        <span id="ph-2">Peak</span>
+        <span id="ph-3">Taper</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── METRIC CARDS ─────────────────────────────────────── -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 slide-up delay-2">
+    <div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm group hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="material-symbols-outlined text-primary text-xl">format_list_numbered</span>
+        <span class="text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Sesiones</span>
+      </div>
+      <div class="text-4xl font-black tracking-tighter text-on-surface" id="mc-sessions">—</div>
+    </div>
+    <div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm group hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="material-symbols-outlined text-primary text-xl">route</span>
+        <span class="text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Km Total</span>
+      </div>
+      <div class="flex items-baseline gap-1">
+        <span class="text-4xl font-black tracking-tighter text-on-surface" id="mc-km">—</span>
+        <span class="text-sm font-bold text-on-surface-variant italic">km</span>
+      </div>
+    </div>
+    <div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm group hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+        <span class="text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Esta semana</span>
+      </div>
+      <div class="flex items-baseline gap-1">
+        <span class="text-4xl font-black tracking-tighter text-on-surface" id="mc-week">—</span>
+        <span class="text-sm font-bold text-on-surface-variant italic">km</span>
+      </div>
+    </div>
+    <div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm group hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="material-symbols-outlined text-primary text-xl">speed</span>
+        <span class="text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Ritmo Z2</span>
+      </div>
+      <div class="text-2xl font-black tracking-tighter text-on-surface" id="mc-pace">—</div>
+    </div>
+  </div>
+
+  <!-- ── NAV TABS ──────────────────────────────────────────── -->
+  <div class="bg-surface-container-low rounded-xl p-1 flex mb-6 slide-up delay-3" id="main-tabs">
+    <button onclick="switchTab('dashboard')" id="tab-dashboard" class="flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase rounded-lg transition-all active-pill text-white">Dashboard</button>
+    <button onclick="switchTab('estimaciones')" id="tab-estimaciones" class="flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Estimaciones</button>
+    <button onclick="switchTab('log')" id="tab-log" class="flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Cargar</button>
+    <button onclick="switchTab('historial')" id="tab-historial" class="flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Historial</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- PANEL: DASHBOARD                                       -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="panel-dashboard" class="panel-content slide-up delay-4">
+
+    <!-- Riegel estimate card (hero) -->
+    <div class="lg:grid lg:grid-cols-3 gap-4 mb-6">
+      <div class="lg:col-span-2 bg-gradient-to-br from-primary to-primary-container p-px rounded-xl shadow-lg mb-4 lg:mb-0">
+        <div class="bg-surface-container-lowest h-full w-full rounded-[11px] p-6">
+          <div class="flex justify-between items-start mb-6">
+            <div>
+              <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant mb-1">Riegel 21K — Proyección</h3>
+              <p class="text-xs text-on-surface-variant/60" id="riegel-subtitle">Basado en sesiones cargadas</p>
+            </div>
+            <span class="material-symbols-outlined text-primary bg-primary/5 p-2 rounded-full">query_stats</span>
+          </div>
+          <div class="flex flex-col md:flex-row items-center gap-8">
+            <div class="relative w-40 h-40 flex items-center justify-center flex-shrink-0">
+              <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 160 160">
+                <circle class="text-surface-container-low" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="6"/>
+                <circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="439.8" id="riegel-circle" stroke-dashoffset="439.8" stroke-linecap="round" stroke-width="8" style="transition:stroke-dashoffset .8s ease"/>
+              </svg>
+              <div class="text-center z-10">
+                <div class="text-2xl font-black tracking-tighter text-on-surface" id="riegel-time">—</div>
+                <div class="text-[9px] font-bold tracking-widest text-primary uppercase">Tiempo est.</div>
+              </div>
+            </div>
+            <div class="flex-1 space-y-4 w-full">
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-xs font-bold uppercase tracking-wide">
+                  <span class="text-on-surface-variant">Ritmo proyectado</span>
+                  <span class="text-on-surface" id="riegel-pace">—</span>
+                </div>
+                <div class="h-1.5 bg-surface-container-low rounded-full overflow-hidden">
+                  <div class="h-full bg-primary rounded-full zone-bar" id="riegel-bar" style="width:0%"></div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-surface-container-low p-3 rounded-lg">
+                  <div class="text-[9px] font-bold text-on-surface-variant uppercase mb-1">Gap vs objetivo</div>
+                  <div class="text-lg font-black text-on-surface" id="riegel-gap">—</div>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-lg">
+                  <div class="text-[9px] font-bold text-on-surface-variant uppercase mb-1">Confianza</div>
+                  <div class="text-lg font-black text-on-surface" id="riegel-conf">—</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tempo calculator card -->
+      <div class="bg-surface-container-highest rounded-xl p-6 flex flex-col justify-between">
+        <div>
+          <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-secondary-container mb-5">Ritmos de entrenamiento</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg">
+              <div>
+                <div class="text-[9px] font-bold text-on-surface-variant uppercase">Z2 actual</div>
+                <div class="text-base font-black text-on-surface" id="tempo-z2">—</div>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+            </div>
+            <div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg">
+              <div>
+                <div class="text-[9px] font-bold text-on-surface-variant uppercase">Tempo (umbral)</div>
+                <div class="text-base font-black text-on-surface" id="tempo-threshold">—</div>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+            </div>
+            <div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg">
+              <div>
+                <div class="text-[9px] font-bold text-on-surface-variant uppercase">Objetivo carrera</div>
+                <div class="text-base font-black text-on-surface">4'44"/km</div>
+              </div>
+              <div class="w-2 h-2 rounded-full bg-primary"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 p-4 bg-primary rounded-xl text-on-primary shadow-lg shadow-primary/20">
+          <div class="text-[9px] font-bold uppercase tracking-widest opacity-80 mb-0.5">Fartlek semanal</div>
+          <div class="text-2xl font-black tracking-tighter" id="tempo-fartlek">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly progression -->
+    <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm mb-4">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Progresión semanal</h3>
+        <span class="text-[10px] text-primary font-bold" id="weekly-total-label"></span>
+      </div>
+      <div id="weekly-grid" class="space-y-1.5"></div>
+    </div>
+
+    <!-- Recent sessions -->
+    <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant mb-3">Últimas sesiones</h3>
+    <div id="recent-list"></div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- PANEL: ESTIMACIONES                                    -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="panel-estimaciones" class="panel-content hidden">
+
+    <!-- Z2 Pace Evolution chart (hero) -->
+    <section class="mb-6">
+      <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm relative overflow-hidden">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-3">
+          <div>
+            <h2 class="text-base font-bold tracking-tight text-on-surface mb-1 uppercase">Z2 Pace Evolution</h2>
+            <div class="flex items-center gap-3">
+              <span class="text-[10px] font-bold tracking-[0.05rem] text-primary bg-primary-container/20 px-2 py-1 rounded">ZONE 2 OPTIMIZATION</span>
+              <span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">18 SEMANAS</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="text-2xl font-black text-on-surface tracking-tighter" id="est-z2-display">—</span>
+            <span class="text-[10px] font-bold text-primary tracking-widest uppercase" id="est-z2-delta"></span>
+          </div>
+        </div>
+        <!-- Chart area -->
+        <div class="h-56 w-full relative">
+          <!-- Target line -->
+          <div class="absolute border-t-2 border-primary-container border-dashed z-10 opacity-60" style="top:38%;left:0;right:0">
+            <span class="absolute -top-5 right-0 text-[9px] font-black text-primary tracking-widest uppercase">Target: 4'44&quot;</span>
+          </div>
+          <div class="absolute bottom-0 left-0 w-full h-px bg-outline-variant/30"></div>
+          <canvas id="canvas-z2" class="absolute inset-0 w-full h-full z-20" style="pointer-events:none"></canvas>
+          <div class="absolute inset-0 flex items-center justify-center" id="chart-empty-state">
+            <p class="text-xs text-on-surface-variant/50 font-medium">Cargá sesiones de Rodaje Z2 para ver la evolución</p>
+          </div>
+        </div>
+        <div class="flex justify-between mt-3 text-[9px] font-bold text-on-surface-variant/40 tracking-widest uppercase">
+          <span>Sem 1</span><span>Sem 4</span><span>Sem 8</span><span>Sem 13</span><span>Sem 18</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats bento grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+      <!-- Aerobic efficiency -->
+      <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
+        <div class="flex justify-between items-start mb-5">
+          <div>
+            <p class="text-[9px] font-black text-on-surface-variant tracking-[0.1em] uppercase mb-1">Eficiencia aeróbica</p>
+            <h3 class="text-2xl font-black text-on-surface tracking-tighter" id="est-eff-val">—</h3>
+          </div>
+          <div class="bg-surface-container-low p-2 rounded-lg text-primary">
+            <span class="material-symbols-outlined">trending_up</span>
+          </div>
+        </div>
+        <div class="h-1.5 bg-surface-container rounded-full overflow-hidden mb-3">
+          <div class="h-full bg-primary-container rounded-full zone-bar zone-glow" id="est-eff-bar" style="width:0%"></div>
+        </div>
+        <p class="text-[10px] font-bold text-on-surface-variant/60 uppercase" id="est-eff-sub">Ratio ritmo/FC Z2</p>
+      </div>
+
+      <!-- Average HR Z2 -->
+      <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+        <div class="flex justify-between items-start mb-5">
+          <div>
+            <p class="text-[9px] font-black text-on-surface-variant tracking-[0.1em] uppercase mb-1">FC promedio Z2</p>
+            <h3 class="text-2xl font-black text-on-surface tracking-tighter" id="est-hr-val">—</h3>
+          </div>
+          <div class="bg-surface-container-low p-2 rounded-lg text-secondary">
+            <span class="material-symbols-outlined">favorite</span>
+          </div>
+        </div>
+        <div class="flex gap-1 items-end h-8 mb-3" id="hr-mini-bars">
+          <div class="flex-1 bg-surface-container-high h-4 rounded-t"></div>
+          <div class="flex-1 bg-surface-container-high h-6 rounded-t"></div>
+          <div class="flex-1 bg-surface-container-high h-5 rounded-t"></div>
+          <div class="flex-1 bg-surface-container-high h-8 rounded-t"></div>
+          <div class="flex-1 bg-primary-container h-7 rounded-t"></div>
+        </div>
+        <p class="text-[10px] font-bold text-on-surface-variant/60 uppercase">Tu Z2 real: 140–148 LPM</p>
+      </div>
+
+      <!-- Gap cards -->
+      <div class="flex flex-col gap-3">
+        <div class="flex-1 bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-[9px] font-black text-on-surface-variant tracking-widest uppercase">Gap vs 4'44&quot;</p>
+            <p class="text-lg font-black text-on-surface" id="est-gap-val">—</p>
+          </div>
+          <span class="material-symbols-outlined text-outline-variant">flag</span>
+        </div>
+        <div class="flex-1 bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-[9px] font-black text-on-surface-variant tracking-widest uppercase">Sesiones Z2</p>
+            <p class="text-lg font-black text-on-surface" id="est-z2-count">—</p>
+          </div>
+          <span class="material-symbols-outlined text-outline-variant">directions_run</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Training volume heatmap -->
+    <section class="mb-6">
+      <h4 class="text-[10px] font-black tracking-[0.2em] text-on-surface-variant mb-4 uppercase">Volumen semanal acumulado</h4>
+      <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+        <div class="grid grid-cols-9 gap-2" id="heatmap-grid"></div>
+        <div class="flex items-center gap-2 mt-4 justify-end">
+          <span class="text-[9px] text-on-surface-variant/50 font-bold uppercase">Menos</span>
+          <div class="flex gap-1">
+            <div class="w-3 h-3 rounded-sm bg-surface-container-high"></div>
+            <div class="w-3 h-3 rounded-sm bg-primary/20"></div>
+            <div class="w-3 h-3 rounded-sm bg-primary/40"></div>
+            <div class="w-3 h-3 rounded-sm bg-primary/70"></div>
+            <div class="w-3 h-3 rounded-sm bg-primary"></div>
+          </div>
+          <span class="text-[9px] text-on-surface-variant/50 font-bold uppercase">Más</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- PANEL: LOG SESIÓN                                      -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="panel-log" class="panel-content hidden">
+    <div class="mb-8">
+      <p class="text-[10px] font-bold tracking-[0.05rem] uppercase text-primary mb-1">NUEVA ENTRADA</p>
+      <h2 class="text-3xl font-extrabold tracking-tighter text-on-surface">Cargar Sesión</h2>
+    </div>
+
+    <!-- Workout type selection -->
+    <section class="mb-8">
+      <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant mb-4">Tipo de sesión</h3>
+      <div class="grid grid-cols-3 md:grid-cols-5 gap-3">
+        <button onclick="selType('fondo')" id="tb-fondo"
+          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-emerald-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-emerald-100">
+          <div class="w-11 h-11 rounded-full bg-emerald-100 text-emerald-500 flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-xl">route</span>
+          </div>
+          <span class="text-[10px] font-bold tracking-tight text-on-surface">Fondo</span>
+        </button>
+        <button onclick="selType('rodaje')" id="tb-rodaje"
+          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-cyan-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-cyan-100">
+          <div class="w-11 h-11 rounded-full bg-cyan-100 text-cyan-500 flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-xl">directions_run</span>
+          </div>
+          <span class="text-[10px] font-bold tracking-tight text-on-surface">Rodaje Z2</span>
+        </button>
+        <button onclick="selType('fartlek')" id="tb-fartlek"
+          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-orange-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-orange-100">
+          <div class="w-11 h-11 rounded-full bg-orange-100 text-orange-400 flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-xl">timer</span>
+          </div>
+          <span class="text-[10px] font-bold tracking-tight text-on-surface">Fartlek</span>
+        </button>
+        <button onclick="selType('movilidad')" id="tb-movilidad"
+          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-violet-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-violet-100">
+          <div class="w-11 h-11 rounded-full bg-violet-100 text-violet-500 flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-xl">self_improvement</span>
+          </div>
+          <span class="text-[10px] font-bold tracking-tight text-on-surface">Movilidad</span>
+        </button>
+        <button onclick="selType('carrera')" id="tb-carrera"
+          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-rose-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-rose-100">
+          <div class="w-11 h-11 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-xl">emoji_events</span>
+          </div>
+          <span class="text-[10px] font-bold tracking-tight text-on-surface">Carrera</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="space-y-5">
+      <!-- Fecha -->
+      <div>
+        <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Fecha</label>
+        <input type="date" id="f-date"
+          class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface"/>
+      </div>
+
+      <!-- Run fields -->
+      <div id="run-fields" class="hidden space-y-4">
+        <!-- Dynamic inputs bento grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Metrics left -->
+          <div class="space-y-3">
+            <div>
+              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Distancia (km)</label>
+              <input type="number" id="f-dist" step="0.01" placeholder="6.84"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Duración (min)</label>
+              <input type="number" id="f-dur" step="1" placeholder="42"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Ritmo prom (min/km)</label>
+              <input type="text" id="f-pace" placeholder="6'05&quot;"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+            </div>
+          </div>
+          <!-- Metrics right -->
+          <div class="space-y-3">
+            <div>
+              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">FC promedio (LPM)</label>
+              <input type="number" id="f-hr" placeholder="157"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Cadencia (ppm)</label>
+              <input type="number" id="f-cad" placeholder="168"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Calorías</label>
+                <input type="number" id="f-kcal" placeholder="480"
+                  class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Potencia (W)</label>
+                <input type="number" id="f-pow" placeholder="—"
+                  class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estructura (fartlek) -->
+        <div id="f-structure-wrap" class="hidden">
+          <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Estructura del entrenamiento</label>
+          <textarea id="f-structure" placeholder="15' suave + 4×6' Z3 (rec 2') + 10' suave · ~5'20''/km" rows="2"
+            class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30 resize-none"></textarea>
+        </div>
+
+        <!-- Heart Rate Zones -->
+        <div class="bg-surface-container-low p-5 rounded-xl">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Zonas cardíacas</h3>
+            <span class="text-[10px] text-on-surface-variant/50 font-medium">opcional · mm:ss</span>
+          </div>
+          <div class="grid grid-cols-5 gap-3">
+            <div class="text-center">
+              <div class="text-[9px] font-black uppercase tracking-wider text-emerald-600 bg-emerald-100 px-2 py-1 rounded-md mb-2">Z1</div>
+              <input type="text" id="z1" placeholder="—"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
+            </div>
+            <div class="text-center">
+              <div class="text-[9px] font-black uppercase tracking-wider text-lime-700 bg-lime-100 px-2 py-1 rounded-md mb-2">Z2</div>
+              <input type="text" id="z2" placeholder="—"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
+            </div>
+            <div class="text-center">
+              <div class="text-[9px] font-black uppercase tracking-wider text-amber-700 bg-amber-100 px-2 py-1 rounded-md mb-2">Z3</div>
+              <input type="text" id="z3" placeholder="1:56"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
+            </div>
+            <div class="text-center">
+              <div class="text-[9px] font-black uppercase tracking-wider text-orange-700 bg-orange-100 px-2 py-1 rounded-md mb-2">Z4</div>
+              <input type="text" id="z4" placeholder="21:19"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
+            </div>
+            <div class="text-center">
+              <div class="text-[9px] font-black uppercase tracking-wider text-rose-700 bg-rose-100 px-2 py-1 rounded-md mb-2">Z5</div>
+              <input type="text" id="z5" placeholder="—"
+                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Movilidad -->
+      <div id="f-movilidad-wrap" class="hidden">
+        <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Descripción</label>
+        <textarea id="f-movilidad" placeholder="20 min movilidad de cadera + core · series de planchas y glúteos" rows="3"
+          class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30 resize-none"></textarea>
+      </div>
+
+      <!-- Notes -->
+      <div>
+        <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Notas</label>
+        <textarea id="f-notes" placeholder="¿Cómo te sentiste? ¿Algo para ajustar?" rows="2"
+          class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30 resize-none"></textarea>
+      </div>
+
+      <!-- Submit -->
+      <div class="pt-4">
+        <button onclick="saveSession()" id="save-btn"
+          class="w-full py-4 rounded-xl active-pill text-white font-black tracking-tight text-base shadow-[0_12px_32px_rgba(0,104,119,0.25)] active:scale-95 transition-all duration-150">
+          GUARDAR SESIÓN
+        </button>
+        <button onclick="clearForm()" class="w-full mt-2 py-3 text-[11px] font-bold tracking-widest uppercase text-on-surface-variant hover:text-on-surface transition-colors">
+          Limpiar formulario
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- PANEL: HISTORIAL                                       -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="panel-historial" class="panel-content hidden">
+    <div id="history-list"></div>
+  </div>
+
+</main>
+
+<!-- ══ BOTTOM NAV ══════════════════════════════════════════ -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-slate-50/70 backdrop-blur-xl z-50 rounded-t-2xl shadow-[0_-8px_24px_rgba(18,28,42,0.06)] border-t border-slate-200/15">
+  <button onclick="switchTab('dashboard')" id="nav-dashboard"
+    class="flex flex-col items-center justify-center nav-active px-3 py-1 font-['Inter'] text-[10px] font-bold tracking-[0.05rem] uppercase active:scale-90 duration-150">
+    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">speed</span>
+    <span>Dashboard</span>
+  </button>
+  <button onclick="switchTab('estimaciones')" id="nav-estimaciones"
+    class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 font-['Inter'] text-[10px] font-bold tracking-[0.05rem] uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
+    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">insights</span>
+    <span>Stats</span>
+  </button>
+  <button onclick="switchTab('log')" id="nav-log"
+    class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 font-['Inter'] text-[10px] font-bold tracking-[0.05rem] uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
+    <span class="material-symbols-outlined mb-0.5" style="font-size:22px;font-variation-settings:'FILL' 1">add_circle</span>
+    <span>Log</span>
+  </button>
+  <button onclick="switchTab('historial')" id="nav-historial"
+    class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 font-['Inter'] text-[10px] font-bold tracking-[0.05rem] uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
+    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">calendar_today</span>
+    <span>Historial</span>
+  </button>
+</nav>
+
+<!-- ══ TOAST ═══════════════════════════════════════════════ -->
+<div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 transition-all duration-300 z-50 pointer-events-none">
+  <div class="bg-inverse-surface text-inverse-on-surface px-5 py-3 rounded-full text-sm font-bold shadow-xl" id="toast-inner"></div>
+</div>
+
+<!-- ══ SCRIPTS ══════════════════════════════════════════════ -->
+<script>
+
+// ── STATE ──────────────────────────────────────────────────
+let sessions    = [];
+let currentType = '';
+let isSaving    = false;
+const PANELS    = ['dashboard','estimaciones','log','historial'];
+const NAV_IDS   = ['dashboard','estimaciones','log','historial'];
+
+// ── INIT ───────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('f-date').value = todayStr();
+  updateCountdown();
+  updatePhaseUI();
+  loadSessions();
+  setInterval(updateCountdown, 60000);
+});
+
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+
+// ── TABS ───────────────────────────────────────────────────
+function switchTab(id) {
+  PANELS.forEach(p => {
+    document.getElementById('panel-' + p).classList.toggle('hidden', p !== id);
+    document.getElementById('tab-' + p).className =
+      p === id
+        ? 'flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase rounded-lg transition-all active-pill text-white'
+        : 'flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface';
+  });
+  NAV_IDS.forEach(n => {
+    const el = document.getElementById('nav-' + n);
+    if (!el) return;
+    el.className = n === id
+      ? 'flex flex-col items-center justify-center nav-active px-3 py-1 font-[\'Inter\'] text-[10px] font-bold tracking-[0.05rem] uppercase active:scale-90 duration-150'
+      : 'flex flex-col items-center justify-center text-slate-400 px-3 py-1 font-[\'Inter\'] text-[10px] font-bold tracking-[0.05rem] uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150';
+  });
+  if (id === 'dashboard')    renderDashboard();
+  if (id === 'estimaciones') renderEstimaciones();
+  if (id === 'historial')    renderHistory();
+}
+
+// ── COUNTDOWN & PHASE ──────────────────────────────────────
+function updateCountdown() {
+  const weeks = Math.max(0, Math.ceil((RACE_DATE - new Date()) / (7 * 864e5)));
+  document.getElementById('wl-num').textContent = weeks;
+}
+
+function currentWeekNum() {
+  return Math.min(TOTAL_WEEKS, Math.max(1, Math.floor((new Date() - PLAN_START) / (7 * 864e5)) + 1));
+}
+
+function getPhase(w) { return PHASES.find(p => w <= p.end) || PHASES[3]; }
+
+function updatePhaseUI() {
+  const w  = currentWeekNum();
+  const ph = getPhase(w);
+  const pi = PHASES.indexOf(ph);
+  document.getElementById('phase-week-label').textContent = `Sem ${w} · ${ph.label}`;
+
+  // Color active segments
+  PHASES.forEach((p, i) => {
+    const seg = document.getElementById('phase-seg-' + i);
+    if (i < pi)       seg.className = seg.className.replace(/bg-\S+/, 'bg-primary/40');
+    else if (i === pi) seg.className = seg.className.replace(/bg-\S+/, 'bg-gradient-to-r from-primary/20 to-primary');
+  });
+
+  // Highlight active phase label
+  PHASES.forEach((p, i) => {
+    const el = document.getElementById('ph-' + i);
+    el.className = i === pi ? 'text-primary font-black' : '';
+  });
+
+  // Progress within current phase
+  const phStart = pi > 0 ? PHASES[pi-1].end + 1 : 1;
+  const pct = ((w - phStart) / (ph.end - phStart + 1) * 100).toFixed(1);
+  document.getElementById('phase-prog').style.width = Math.max(4, pct) + '%';
+}
+
+function weekOf(dateStr) {
+  const d = new Date(dateStr + 'T12:00:00');
+  return Math.min(TOTAL_WEEKS, Math.max(1, Math.floor((d - PLAN_START) / (7 * 864e5)) + 1));
+}
+
+// ── API ────────────────────────────────────────────────────
+async function loadSessions() {
+  setSyncStatus('loading');
+  try {
+    const r = await fetch(GAS_URL + '?t=' + Date.now());
+    const d = await r.json();
+    sessions = d.sessions || [];
+    setSyncStatus('ok');
+    const activePanel = document.querySelector('.panel-content:not(.hidden)').id.replace('panel-','');
+    if (activePanel === 'dashboard')    renderDashboard();
+    if (activePanel === 'estimaciones') renderEstimaciones();
+    if (activePanel === 'historial')    renderHistory();
+    updateMetricCards();
+  } catch (e) {
+    setSyncStatus('err');
+    toast('Error de conexión. Revisá la URL del deployment.', true);
+  }
+}
+
+async function apiPost(payload) {
+  const r = await fetch(GAS_URL, { method:'POST', body: JSON.stringify(payload) });
+  return await r.json();
+}
+
+function setSyncStatus(state) {
+  const dot = document.getElementById('sync-dot');
+  const lbl = document.getElementById('sync-label');
+  if (state === 'ok') {
+    dot.className = 'w-2 h-2 rounded-full bg-emerald-400';
+    lbl.textContent = 'Sincronizado ' + new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+  } else if (state === 'err') {
+    dot.className = 'w-2 h-2 rounded-full bg-rose-400';
+    lbl.textContent = 'Error de sync';
+  } else {
+    dot.className = 'w-2 h-2 rounded-full bg-amber-400 syncing';
+    lbl.textContent = 'Sincronizando...';
+  }
+}
+
+// ── UTILS ─────────────────────────────────────────────────
+function runSessions() { return sessions.filter(s => ['fondo','rodaje','fartlek','carrera'].includes(s.tipo)); }
+function z2Sessions()  { return sessions.filter(s => s.tipo === 'rodaje'); }
+
+function paceToSec(str) {
+  if (!str) return 0;
+  const s = str.replace(/['"]/g,'').trim();
+  const p = s.split(':');
+  return p.length === 2 ? parseInt(p[0])*60+parseInt(p[1]) : parseFloat(p[0])*60;
+}
+function secToPace(sec) {
+  if (!sec||sec<=0) return '—';
+  const m = Math.floor(sec/60), s = Math.round(sec%60);
+  return m + "'" + String(s).padStart(2,'0') + '"';
+}
+function parseMins(str) {
+  if (!str) return 0;
+  const p = str.replace(/['"]/g,'').trim().split(':');
+  return p.length===2 ? parseInt(p[0])*60+parseInt(p[1]) : parseFloat(p[0])*60;
+}
+function formatTimeHMS(totalSec) {
+  const h=Math.floor(totalSec/3600), m=Math.floor((totalSec%3600)/60), s=Math.round(totalSec%60);
+  return h+'h'+String(m).padStart(2,'0')+"'"+String(s).padStart(2,'0')+'"';
+}
+
+// ── METRIC CARDS ──────────────────────────────────────────
+function updateMetricCards() {
+  const run = runSessions();
+  const totalKm = run.reduce((a,s)=>a+(parseFloat(s.distancia_km)||0),0);
+  const now = new Date(), monStart = new Date(now);
+  monStart.setDate(now.getDate()-((now.getDay()+6)%7)); monStart.setHours(0,0,0,0);
+  const weekKm = run.filter(s=>new Date(s.fecha+'T12:00:00')>=monStart).reduce((a,s)=>a+(parseFloat(s.distancia_km)||0),0);
+  const z2 = z2Sessions().filter(s=>s.ritmo_prom);
+  const lastPace = z2.length ? z2[z2.length-1].ritmo_prom : '—';
+
+  document.getElementById('mc-sessions').textContent = sessions.length;
+  document.getElementById('mc-km').textContent       = totalKm.toFixed(1);
+  document.getElementById('mc-week').textContent     = weekKm.toFixed(1);
+  document.getElementById('mc-pace').textContent     = lastPace;
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────
+function renderDashboard() {
+  updateMetricCards();
+  renderRiegelCard();
+  renderTempoCard();
+  renderWeeklyGrid();
+  const recent = [...sessions].reverse().slice(0,4);
+  const el = document.getElementById('recent-list');
+  el.innerHTML = recent.length
+    ? recent.map(s=>sessionCard(s,false)).join('')
+    : '<p class="text-center text-on-surface-variant/50 text-sm py-12 font-medium">No hay sesiones cargadas aún.</p>';
+}
+
+function renderRiegelCard() {
+  const run = runSessions();
+  const fondos   = run.filter(s=>['fondo','carrera'].includes(s.tipo)&&s.distancia_km&&s.ritmo_prom);
+  const all      = [...fondos].sort((a,b)=>parseFloat(b.distancia_km)-parseFloat(a.distancia_km));
+
+  if (!all.length) {
+    document.getElementById('riegel-time').textContent = '—';
+    document.getElementById('riegel-pace').textContent = '—';
+    document.getElementById('riegel-gap').textContent  = '—';
+    document.getElementById('riegel-conf').textContent = '—';
+    document.getElementById('riegel-subtitle').textContent = 'Cargá un fondo o carrera para estimar';
+    return;
+  }
+
+  const ref  = all[0];
+  const dist = parseFloat(ref.distancia_km);
+  const pSec = paceToSec(ref.ritmo_prom);
+  const totalSec = pSec * dist;
+  const est21k   = totalSec * Math.pow(21.0975/dist, 1.06);
+  const paceSec  = est21k / 21.0975;
+  const targetSec = 4*60+44;
+  const gapSec   = Math.round(paceSec - targetSec);
+  const conf     = dist >= 15 ? 'Alta' : dist >= 10 ? 'Media' : 'Baja';
+
+  document.getElementById('riegel-time').textContent = formatTimeHMS(est21k);
+  document.getElementById('riegel-pace').textContent = secToPace(paceSec) + '/km';
+  document.getElementById('riegel-gap').textContent  = (gapSec>0?'+':'')+gapSec+'s';
+  document.getElementById('riegel-conf').textContent = conf;
+  document.getElementById('riegel-subtitle').textContent = `Basado en ${dist}km (${ref.fecha})`;
+
+  // Progress ring: 0% = 5'30", 100% = 4'44"
+  const minSec=5*60+30, maxSec=4*60+44;
+  const pct = Math.max(0,Math.min(1,(5*60+30-paceSec)/(5*60+30-4*60+44)||0));
+  const circ = 439.8;
+  document.getElementById('riegel-circle').setAttribute('stroke-dashoffset', circ-(circ*(Math.min(1,Math.max(0,(5*60+30-paceSec)/(46))))));
+  document.getElementById('riegel-bar').style.width = Math.max(10,Math.min(100,(5*60+30-paceSec)/46*100)).toFixed(0)+'%';
+}
+
+function renderTempoCard() {
+  const z2 = z2Sessions().filter(s=>s.ritmo_prom);
+  if (!z2.length) return;
+  const best = [...z2].sort((a,b)=>paceToSec(a.ritmo_prom)-paceToSec(b.ritmo_prom))[0];
+  const z2Sec = paceToSec(best.ritmo_prom);
+  const tempoSec = z2Sec - 30;
+  const fartlekSec = z2Sec - 15; // fartlek pace is between Z2 and tempo
+
+  document.getElementById('tempo-z2').textContent        = secToPace(z2Sec) + '/km';
+  document.getElementById('tempo-threshold').textContent = secToPace(tempoSec) + '/km';
+  document.getElementById('tempo-fartlek').textContent   = secToPace(fartlekSec) + '/km';
+}
+
+function renderWeeklyGrid() {
+  const run = runSessions();
+  const wkKm = {};
+  for (let w=1;w<=TOTAL_WEEKS;w++) wkKm[w]=0;
+  run.forEach(s=>{const w=weekOf(s.fecha);if(wkKm[w]!==undefined)wkKm[w]+=parseFloat(s.distancia_km)||0;});
+  const maxKm = Math.max(...Object.values(wkKm),1);
+  const cw = currentWeekNum();
+  const totalKm = Object.values(wkKm).reduce((a,b)=>a+b,0);
+  document.getElementById('weekly-total-label').textContent = totalKm.toFixed(1) + ' km total';
+
+  let html='';
+  for(let w=1;w<=TOTAL_WEEKS;w++){
+    const km=wkKm[w], pct=(km/maxKm*100).toFixed(1);
+    const isCur=w===cw;
+    const phIdx=PHASES.findIndex(p=>w<=p.end);
+    const barColors=['bg-primary/30','bg-gradient-to-r from-primary/40 to-primary','bg-primary/60','bg-primary'];
+    html+=`<div class="flex items-center gap-2 py-0.5 group">
+      <span class="text-[10px] font-bold ${isCur?'text-primary':'text-on-surface-variant/50'} min-w-[52px]">Sem ${w}</span>
+      <div class="flex-1 h-2 bg-surface-container rounded-full overflow-hidden">
+        <div class="h-full rounded-full ${isCur?'bg-primary-container zone-glow':barColors[phIdx]||'bg-primary/30'} zone-bar" style="width:${pct}%"></div>
+      </div>
+      <span class="text-[10px] font-bold text-on-surface-variant/60 min-w-[44px] text-right">${km>0?km.toFixed(1)+'km':''}</span>
+    </div>`;
+  }
+  document.getElementById('weekly-grid').innerHTML=html;
+}
+
+// ── ESTIMACIONES ──────────────────────────────────────────
+function renderEstimaciones() {
+  const z2 = z2Sessions().filter(s=>s.ritmo_prom);
+  const all = z2Sessions().filter(s=>s.ritmo_prom&&s.fc_prom);
+
+  // Z2 display
+  if(z2.length){
+    const lastZ2=z2[z2.length-1];
+    document.getElementById('est-z2-display').textContent=lastZ2.ritmo_prom+'/km';
+    if(z2.length>=2){
+      const prev=z2[z2.length-2];
+      const delta=paceToSec(prev.ritmo_prom)-paceToSec(lastZ2.ritmo_prom);
+      document.getElementById('est-z2-delta').textContent=(delta>0?'↓ −':'↑ +')+Math.abs(Math.round(delta))+'s vs anterior';
+    }
+    document.getElementById('chart-empty-state').style.display='none';
+  }
+
+  // Efficiency
+  if(all.length>=2){
+    const sorted=[...all].sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
+    const ratios=sorted.map(s=>paceToSec(s.ritmo_prom)/parseFloat(s.fc_prom));
+    const delta=ratios[ratios.length-1]-ratios[0];
+    const effLabel=delta<-0.01?'Mejorando ↓':delta>0.05?'Revisar carga ↑':'Estable →';
+    document.getElementById('est-eff-val').textContent=effLabel;
+    document.getElementById('est-eff-bar').style.width=delta<-0.01?'80%':delta<0.01?'50%':'30%';
+    document.getElementById('est-eff-sub').textContent=`${all.length} sesiones Z2 analizadas`;
+  }
+
+  // HR
+  if(z2.length){
+    const hrs=z2.filter(s=>s.fc_prom).map(s=>parseFloat(s.fc_prom)).filter(Boolean);
+    const avgHr=hrs.length?Math.round(hrs.reduce((a,b)=>a+b,0)/hrs.length):null;
+    if(avgHr) document.getElementById('est-hr-val').textContent=avgHr+' LPM';
+    renderHrMiniBars(hrs);
+  }
+
+  // Gap
+  if(z2.length){
+    const best=[...z2].sort((a,b)=>paceToSec(a.ritmo_prom)-paceToSec(b.ritmo_prom))[0];
+    const tempoSec=paceToSec(best.ritmo_prom)-30;
+    const gap=Math.round(tempoSec-(4*60+44));
+    document.getElementById('est-gap-val').textContent=(gap>0?'+':'')+gap+'s/km';
+  }
+
+  document.getElementById('est-z2-count').textContent=z2.length+' sesiones';
+  renderZ2Chart(z2);
+  renderHeatmap();
+}
+
+function renderHrMiniBars(hrs) {
+  if(!hrs.length) return;
+  const max=Math.max(...hrs), min=Math.min(...hrs), range=max-min||1;
+  const el=document.getElementById('hr-mini-bars');
+  el.innerHTML=hrs.slice(-7).map((h,i)=>{
+    const pct=Math.round(((h-min)/range)*70+20);
+    const isCur=i===hrs.slice(-7).length-1;
+    return `<div class="flex-1 ${isCur?'bg-primary-container':'bg-surface-container-high'} rounded-t" style="height:${pct}%"></div>`;
+  }).join('');
+}
+
+function renderZ2Chart(z2data) {
+  const canvas = document.getElementById('canvas-z2');
+  if (!z2data.length) return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.offsetWidth||700, H=canvas.offsetHeight||224;
+  canvas.width=W*devicePixelRatio; canvas.height=H*devicePixelRatio;
+  canvas.style.width=W+'px'; canvas.style.height=H+'px';
+  ctx.scale(devicePixelRatio,devicePixelRatio);
+  ctx.clearRect(0,0,W,H);
+
+  const data=z2data.filter(s=>s.ritmo_prom).map(s=>({w:weekOf(s.fecha),sec:paceToSec(s.ritmo_prom)}));
+  if(data.length<2) return;
+
+  const pad={t:8,r:16,b:8,l:0};
+  const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+  const secs=data.map(d=>d.sec);
+  const minS=Math.min(...secs)-20, maxS=Math.max(...secs)+20;
+  const minW=1, maxW=TOTAL_WEEKS, wRange=maxW-minW;
+
+  const xOf=w=>pad.l+(w-minW)/wRange*cw;
+  const yOf=s=>pad.t+(maxS-s)/(maxS-minS)*ch;
+
+  // Target line (4'44")
+  const ty=yOf(4*60+44);
+  if(ty>0&&ty<H){
+    ctx.setLineDash([5,5]); ctx.strokeStyle='rgba(0,104,119,0.4)'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(0,ty); ctx.lineTo(W,ty); ctx.stroke(); ctx.setLineDash([]);
+  }
+
+  // Fill area
+  const grad=ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0,'rgba(34,211,238,0.15)'); grad.addColorStop(1,'rgba(34,211,238,0)');
+  ctx.beginPath();
+  data.forEach((d,i)=>{ const x=xOf(d.w),y=yOf(d.sec); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+  ctx.lineTo(xOf(data[data.length-1].w),H);
+  ctx.lineTo(xOf(data[0].w),H);
+  ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
+
+  // Line
+  ctx.beginPath(); ctx.strokeStyle='#22d3ee'; ctx.lineWidth=2.5; ctx.lineJoin='round';
+  data.forEach((d,i)=>{ const x=xOf(d.w),y=yOf(d.sec); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+  ctx.stroke();
+
+  // Dots + glow
+  data.forEach((d,i)=>{
+    const x=xOf(d.w),y=yOf(d.sec),isLast=i===data.length-1;
+    if(isLast){ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);ctx.fillStyle='rgba(34,211,238,0.2)';ctx.fill();}
+    ctx.beginPath();ctx.arc(x,y,isLast?5:3.5,0,Math.PI*2);
+    ctx.fillStyle=isLast?'#22d3ee':'#006877';
+    ctx.fill();
+    if(isLast){ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();}
+  });
+}
+
+function renderHeatmap() {
+  const run=runSessions();
+  const wkKm={};
+  for(let w=1;w<=TOTAL_WEEKS;w++) wkKm[w]=0;
+  run.forEach(s=>{const w=weekOf(s.fecha);if(wkKm[w]!==undefined)wkKm[w]+=parseFloat(s.distancia_km)||0;});
+  const maxKm=Math.max(...Object.values(wkKm),1);
+
+  const el=document.getElementById('heatmap-grid');
+  el.innerHTML=Object.entries(wkKm).map(([w,km])=>{
+    const pct=km/maxKm;
+    const bg=pct===0?'bg-surface-container-high':pct<.25?'bg-primary/20':pct<.5?'bg-primary/40':pct<.75?'bg-primary/70':'bg-primary';
+    const title=`Sem ${w}: ${km.toFixed(1)} km`;
+    return `<div class="aspect-square ${bg} rounded-md cursor-default" title="${title}"></div>`;
+  }).join('');
+}
+
+// ── SESSION CARD ──────────────────────────────────────────
+function zoneBar(s) {
+  const keys=['z1','z2','z3','z4','z5'];
+  const mins=keys.map(k=>parseMins(s[k]));
+  const total=mins.reduce((a,b)=>a+b,0);
+  if(!total) return '';
+  return `<div class="flex h-1.5 rounded-full overflow-hidden gap-px my-2">
+    ${mins.map((m,i)=>m>0?`<div class="h-full rounded-sm" style="width:${(m/total*100).toFixed(1)}%;background:${ZONE_COLORS[i]}"></div>`:'').join('')}
+  </div>`;
+}
+
+function sessionCard(s,showDel){
+  const m=TYPE_META[s.tipo]||{label:s.tipo,icon:'fitness_center'};
+  const badge=TYPE_BADGE[s.tipo]||'bg-surface-container text-on-surface-variant ring-1 ring-surface-container-high';
+  const iconColors=TYPE_COLORS[s.tipo]||'bg-surface-container text-on-surface-variant';
+  const dateDisp=new Date(s.fecha+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
+  const w=weekOf(s.fecha);
+  const ph=getPhase(w);
+
+  let stats='';
+  if(s.distancia_km&&parseFloat(s.distancia_km))stats+=`<span class="text-xs font-bold text-on-surface">${parseFloat(s.distancia_km).toFixed(2)} km</span>`;
+  if(s.duracion_min)stats+=`<span class="text-xs text-on-surface-variant">${s.duracion_min} min</span>`;
+  if(s.ritmo_prom)stats+=`<span class="text-xs text-on-surface-variant">${s.ritmo_prom}/km</span>`;
+  if(s.fc_prom)stats+=`<span class="text-xs text-on-surface-variant">${s.fc_prom} LPM</span>`;
+  if(s.calorias)stats+=`<span class="text-xs text-on-surface-variant">${s.calorias} kcal</span>`;
+
+  return `<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm mb-3 hover:shadow-md transition-shadow duration-200">
+    <div class="flex items-start justify-between mb-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full ${iconColors} flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-lg">${m.icon}</span>
+        </div>
+        <div>
+          <span class="inline-block text-[10px] font-bold tracking-wide px-2 py-0.5 rounded-full ${badge}">${m.label}</span>
+          <div class="flex items-center gap-1.5 mt-0.5">
+            <span class="text-[10px] text-on-surface-variant/60 font-medium">Sem ${w} · ${ph.label}</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[10px] font-bold text-on-surface-variant">${dateDisp}</span>
+        ${showDel?`<button onclick="deleteSession('${s.id}')" class="w-7 h-7 rounded-full bg-error-container/30 text-on-error-container hover:bg-error-container transition-colors flex items-center justify-center">
+          <span class="material-symbols-outlined" style="font-size:16px">close</span>
+        </button>`:''}
+      </div>
+    </div>
+    ${stats?`<div class="flex flex-wrap gap-x-4 gap-y-1 mb-1">${stats}</div>`:''}
+    ${s.estructura?`<div class="text-xs font-mono text-on-surface-variant bg-surface-container-low px-3 py-2 rounded-lg mt-2 border-l-2 border-primary-container">${s.estructura}</div>`:''}
+    ${s.movilidad_desc?`<div class="text-xs font-mono text-on-surface-variant bg-surface-container-low px-3 py-2 rounded-lg mt-2 border-l-2 border-violet-200">${s.movilidad_desc}</div>`:''}
+    ${zoneBar(s)}
+    ${s.notas?`<p class="text-xs text-on-surface-variant/60 italic mt-1">"${s.notas}"</p>`:''}
+  </div>`;
+}
+
+// ── HISTORY ───────────────────────────────────────────────
+function renderHistory() {
+  const el=document.getElementById('history-list');
+  if(!sessions.length){
+    el.innerHTML='<p class="text-center text-on-surface-variant/50 text-sm py-12 font-medium">No hay sesiones registradas.</p>';
+    return;
+  }
+  el.innerHTML=[...sessions].reverse().map(s=>sessionCard(s,true)).join('');
+}
+
+// ── FORM ──────────────────────────────────────────────────
+const TYPE_HOVER = {
+  fondo:     'bg-emerald-50 border-emerald-200 shadow-emerald-100',
+  rodaje:    'bg-cyan-50 border-cyan-200 shadow-cyan-100',
+  fartlek:   'bg-orange-50 border-orange-200 shadow-orange-100',
+  movilidad: 'bg-violet-50 border-violet-200 shadow-violet-100',
+  carrera:   'bg-rose-50 border-rose-200 shadow-rose-100'
+};
+
+function selType(type){
+  currentType=type;
+  ['fondo','rodaje','fartlek','movilidad','carrera'].forEach(t=>{
+    const btn=document.getElementById('tb-'+t);
+    btn.className='type-btn group flex flex-col items-center p-5 rounded-xl shadow-sm transition-all duration-200 active:scale-95 border '
+      +(t===type
+        ? TYPE_HOVER[t]+' shadow-md'
+        : 'bg-surface-container-lowest hover:'+TYPE_HOVER[t]+' border-transparent');
+  });
+  const isRun=['fondo','rodaje','fartlek','carrera'].includes(type);
+  document.getElementById('run-fields').classList.toggle('hidden',!isRun);
+  document.getElementById('f-structure-wrap').classList.toggle('hidden',type!=='fartlek');
+  document.getElementById('f-movilidad-wrap').classList.toggle('hidden',type!=='movilidad');
+}
+
+function clearForm(){
+  currentType='';
+  ['fondo','rodaje','fartlek','movilidad','carrera'].forEach(t=>{
+    document.getElementById('tb-'+t).className='type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm border border-transparent transition-all duration-200 active:scale-95';
+  });
+  ['f-dist','f-dur','f-pace','f-hr','f-cad','f-kcal','f-pow','f-structure','f-movilidad','f-notes','z1','z2','z3','z4','z5']
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('f-date').value=todayStr();
+  document.getElementById('run-fields').classList.add('hidden');
+  document.getElementById('f-structure-wrap').classList.add('hidden');
+  document.getElementById('f-movilidad-wrap').classList.add('hidden');
+}
+
+async function saveSession(){
+  if(isSaving) return;
+  if(!currentType){toast('Elegí el tipo de sesión.'); return;}
+  const date=document.getElementById('f-date').value;
+  if(!date){toast('Ingresá la fecha.'); return;}
+
+  const sess={
+    tipo:currentType, fecha:date,
+    distancia_km:document.getElementById('f-dist').value,
+    duracion_min:document.getElementById('f-dur').value,
+    ritmo_prom:document.getElementById('f-pace').value,
+    fc_prom:document.getElementById('f-hr').value,
+    cadencia:document.getElementById('f-cad').value,
+    calorias:document.getElementById('f-kcal').value,
+    potencia:document.getElementById('f-pow').value,
+    estructura:document.getElementById('f-structure').value,
+    z1:document.getElementById('z1').value,
+    z2:document.getElementById('z2').value,
+    z3:document.getElementById('z3').value,
+    z4:document.getElementById('z4').value,
+    z5:document.getElementById('z5').value,
+    movilidad_desc:document.getElementById('f-movilidad').value,
+    notas:document.getElementById('f-notes').value
+  };
+
+  isSaving=true;
+  const btn=document.getElementById('save-btn');
+  btn.textContent='GUARDANDO...'; btn.style.opacity='.7';
+
+  try{
+    const res=await apiPost({action:'save',session:sess});
+    if(res.ok){
+      toast('✓ Sesión guardada');
+      clearForm();
+      await loadSessions();
+    } else { toast('Error: '+(res.error||'desconocido'),true); }
+  } catch(e){ toast('Error de conexión',true); }
+  finally{ isSaving=false; btn.textContent='GUARDAR SESIÓN'; btn.style.opacity='1'; }
+}
+
+async function deleteSession(id){
+  if(!confirm('¿Eliminar esta sesión?')) return;
+  try{
+    const res=await apiPost({action:'delete',id});
+    if(res.ok){ toast('Sesión eliminada'); await loadSessions(); renderHistory(); }
+    else toast('Error al eliminar',true);
+  } catch(e){ toast('Error de conexión',true); }
+}
+
+// ── TOAST ─────────────────────────────────────────────────
+let toastTimer;
+function toast(msg, isErr=false){
+  const el=document.getElementById('toast');
+  const inner=document.getElementById('toast-inner');
+  inner.textContent=msg;
+  inner.className=`${isErr?'bg-error-container text-on-error-container':'bg-inverse-surface text-inverse-on-surface'} px-5 py-3 rounded-full text-sm font-bold shadow-xl`;
+  el.classList.remove('translate-y-12','opacity-0');
+  el.classList.add('translate-y-0','opacity-100');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{el.classList.add('translate-y-12','opacity-0');el.classList.remove('translate-y-0','opacity-100');},3000);
+}
+</script>
+</body>
+</html>
