@@ -9,164 +9,131 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
 tailwind.config = {
-  darkMode: "class",
-  theme: {
-    extend: {
-      colors: {
-        "surface-container": "#e6eeff",
-        "secondary-container": "#b8ebf7",
-        "error-container": "#ffdad6",
-        "secondary-fixed-dim": "#9dcfda",
-        "secondary-fixed": "#b8ebf7",
-        "on-error-container": "#93000a",
-        "secondary": "#33656f",
-        "surface-container-high": "#dee9fc",
-        "surface-container-low": "#eff4ff",
-        "on-tertiary-fixed": "#2a1800",
-        "on-tertiary-container": "#6e4600",
-        "surface-container-highest": "#d9e3f6",
-        "on-error": "#ffffff",
-        "primary-fixed-dim": "#2fd9f4",
-        "surface-dim": "#d0dbed",
-        "surface-variant": "#d9e3f6",
-        "primary-fixed": "#a2eeff",
-        "tertiary-fixed": "#ffddb5",
-        "inverse-on-surface": "#eaf1ff",
-        "on-secondary-fixed": "#001f25",
-        "error": "#ba1a1a",
-        "surface": "#f8f9ff",
-        "outline": "#6c797d",
-        "on-tertiary": "#ffffff",
-        "tertiary": "#835400",
-        "on-secondary": "#ffffff",
-        "on-tertiary-fixed-variant": "#643f00",
-        "background": "#f8f9ff",
-        "on-primary-fixed-variant": "#004e5a",
-        "inverse-surface": "#27313f",
-        "tertiary-container": "#ffb13b",
-        "tertiary-fixed-dim": "#ffb957",
-        "on-secondary-fixed-variant": "#184d57",
-        "surface-bright": "#f8f9ff",
-        "on-secondary-container": "#3a6b76",
-        "inverse-primary": "#2fd9f4",
-        "on-primary": "#ffffff",
-        "primary": "#006877",
-        "primary-container": "#22d3ee",
-        "outline-variant": "#bbc9cd",
-        "surface-container-lowest": "#ffffff",
-        "on-surface-variant": "#3c494c",
-        "on-primary-fixed": "#001f25",
-        "surface-tint": "#006877",
-        "on-surface": "#121c2a",
-        "on-primary-container": "#005763",
-        "on-background": "#121c2a"
-      },
-      borderRadius: { DEFAULT:"0.25rem", lg:"0.5rem", xl:"0.75rem", full:"9999px" },
-      fontFamily: { headline:["Inter"], body:["Inter"], label:["Inter"] }
-    }
-  }
+  darkMode:"class",
+  theme:{extend:{
+    colors:{
+      "surface-container":"#e6eeff","secondary-container":"#b8ebf7","error-container":"#ffdad6",
+      "secondary-fixed-dim":"#9dcfda","secondary-fixed":"#b8ebf7","on-error-container":"#93000a",
+      "secondary":"#33656f","surface-container-high":"#dee9fc","surface-container-low":"#eff4ff",
+      "on-tertiary-fixed":"#2a1800","on-tertiary-container":"#6e4600","surface-container-highest":"#d9e3f6",
+      "on-error":"#ffffff","primary-fixed-dim":"#2fd9f4","surface-dim":"#d0dbed","surface-variant":"#d9e3f6",
+      "primary-fixed":"#a2eeff","tertiary-fixed":"#ffddb5","inverse-on-surface":"#eaf1ff",
+      "on-secondary-fixed":"#001f25","error":"#ba1a1a","surface":"#f8f9ff","outline":"#6c797d",
+      "on-tertiary":"#ffffff","tertiary":"#835400","on-secondary":"#ffffff",
+      "on-tertiary-fixed-variant":"#643f00","background":"#f8f9ff","on-primary-fixed-variant":"#004e5a",
+      "inverse-surface":"#27313f","tertiary-container":"#ffb13b","tertiary-fixed-dim":"#ffb957",
+      "on-secondary-fixed-variant":"#184d57","surface-bright":"#f8f9ff","on-secondary-container":"#3a6b76",
+      "inverse-primary":"#2fd9f4","on-primary":"#ffffff","primary":"#006877","primary-container":"#22d3ee",
+      "outline-variant":"#bbc9cd","surface-container-lowest":"#ffffff","on-surface-variant":"#3c494c",
+      "on-primary-fixed":"#001f25","surface-tint":"#006877","on-surface":"#121c2a",
+      "on-primary-container":"#005763","on-background":"#121c2a"
+    },
+    borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},
+    fontFamily:{headline:["Inter"],body:["Inter"],label:["Inter"]}
+  }}
 }
 </script>
 <style>
-  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
-  body { font-family:'Inter',sans-serif; min-height: max(884px, 100dvh); }
-  .active-pill { background: linear-gradient(135deg, #006877 0%, #22d3ee 100%); }
-  .glass { backdrop-filter: blur(24px); }
-  .zone-glow { box-shadow: 0 0 8px rgba(34,211,238,0.5); }
-
-  /* Animated entry */
-  @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
-  .slide-up { animation: slideUp .35s ease both; }
-  .delay-1 { animation-delay:.05s; }
-  .delay-2 { animation-delay:.1s; }
-  .delay-3 { animation-delay:.15s; }
-  .delay-4 { animation-delay:.2s; }
-
-  /* Nav active state */
-  .nav-active { color: #22d3ee; background: rgba(34,211,238,0.1); border-radius: 0.75rem; }
-
-  /* Canvas tooltip */
-  #canvas-prog { cursor: crosshair; }
-
-  /* Input focus accent */
-  input:focus, textarea:focus, select:focus {
-    outline: none;
-    border-color: #006877 !important;
-    box-shadow: 0 2px 0 0 #006877;
-  }
-
-  /* Zone bars */
-  .zone-bar { transition: width .6s cubic-bezier(.34,1.56,.64,1); }
-
-  /* Sync pulse */
-  @keyframes syncPulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-  .syncing { animation: syncPulse .8s ease-in-out infinite; }
-
-  /* Phase progress fill */
-  .phase-fill { transition: width .8s ease; }
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+  body{font-family:'Inter',sans-serif;min-height:max(884px,100dvh)}
+  .active-pill{background:linear-gradient(135deg,#006877 0%,#22d3ee 100%)}
+  .zone-glow{box-shadow:0 0 8px rgba(34,211,238,0.5)}
+  @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .slide-up{animation:slideUp .35s ease both}
+  .delay-1{animation-delay:.05s}.delay-2{animation-delay:.1s}.delay-3{animation-delay:.15s}.delay-4{animation-delay:.2s}
+  .nav-active{color:#22d3ee;background:rgba(34,211,238,0.1);border-radius:0.75rem}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:#006877!important;box-shadow:0 2px 0 0 #006877}
+  .zone-bar{transition:width .6s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes syncPulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .syncing{animation:syncPulse .8s ease-in-out infinite}
+  .phase-fill{transition:width .8s ease}
+  .rpe-btn{transition:all .15s;border:1.5px solid transparent}
+  .rpe-btn.selected{border-color:currentColor;transform:scale(1.1)}
+  .karvonen-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:9999px;letter-spacing:.06em;text-transform:uppercase}
 </style>
 </head>
 <body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
 
-<!-- ══ CONFIG ══════════════════════════════════════════════ -->
+<!-- ══ PERFIL DEL ATLETA (config hardcoded + editable) ══ -->
 <script>
-  // ↓↓↓ REEMPLAZÁ CON TU URL DE DEPLOYMENT ↓↓↓
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbw-6k1-1NF_QSd6MKTlTq8acWAnj86nZ9F_vAb0uxUKk4kZ0XcI0um1kPaiXqw3Md0M/exec";
+  // ↓↓↓ TU URL DE DEPLOYMENT ↓↓↓
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbxqFfhqb8Imr1Wciw7zD-cB1AiNUSZxf5FCn4Budwa02c2M0bQcX58qiesWLdVP6ObQ/exec";
 
+  // ── PERFIL BASE (tus datos reales) ──────────────────────
+  const PERFIL_DEFAULT = {
+    nombre:    "Sebastian",
+    edad:      30,
+    peso_kg:   86,
+    fc_max:    187,   // Tanaka: 208 - 0.7×30
+    fc_reposo: 48,    // mínimo registrado en sueño
+    mejor_10k: "60:00",  // tu 10K de referencia (chill, post-parate)
+    nacimiento:"1995-07-15"
+  };
+
+  // ── CONSTANTES DEL PLAN ──────────────────────────────────
   const PLAN_START  = new Date("2026-04-14");
   const RACE_DATE   = new Date("2026-08-25");
   const TOTAL_WEEKS = 18;
+  const TARGET_PACE_SEC = 4*60+44; // 4'44"/km
 
   const PHASES = [
-    { end:4,  label:"Base",        full:"Fase 1 — Adaptación",    color:"from-primary/20 to-primary/40" },
-    { end:8,  label:"Build",       full:"Fase 2 — Construcción",   color:"from-primary/40 to-primary" },
-    { end:13, label:"Peak",        full:"Fase 3 — Resistencia",    color:"from-primary/60 to-primary" },
-    { end:18, label:"Taper",       full:"Fase 4 — Específico 21K", color:"from-primary to-primary-container" }
+    {end:4,  label:"Base",  full:"Fase 1 — Adaptación",    km_target:25},
+    {end:8,  label:"Build", full:"Fase 2 — Construcción",   km_target:35},
+    {end:13, label:"Peak",  full:"Fase 3 — Resistencia",    km_target:45},
+    {end:18, label:"Taper", full:"Fase 4 — Específico 21K", km_target:30}
   ];
 
   const TYPE_META = {
-    fondo:     { label:"Fondo largo",         icon:"route",        color:"emerald" },
-    rodaje:    { label:"Rodaje Z2",            icon:"directions_run",color:"cyan"   },
-    fartlek:   { label:"Fartlek / Intervalos", icon:"timer",        color:"orange"  },
-    movilidad: { label:"Movilidad / Core",     icon:"self_improvement",color:"violet"},
-    carrera:   { label:"Carrera",              icon:"emoji_events", color:"rose"    }
+    fondo:     {label:"Fondo largo",         icon:"route",           color:"emerald"},
+    rodaje:    {label:"Rodaje Z2",            icon:"directions_run",  color:"cyan"},
+    fartlek:   {label:"Fartlek / Intervalos", icon:"timer",           color:"orange"},
+    movilidad: {label:"Movilidad / Core",     icon:"self_improvement",color:"violet"},
+    carrera:   {label:"Carrera",              icon:"emoji_events",    color:"rose"}
   };
-
   const TYPE_COLORS = {
-    fondo:     "bg-emerald-100 text-emerald-600",
-    rodaje:    "bg-cyan-100 text-cyan-600",
-    fartlek:   "bg-orange-100 text-orange-500",
-    movilidad: "bg-violet-100 text-violet-600",
-    carrera:   "bg-rose-100 text-rose-600"
+    fondo:"bg-emerald-100 text-emerald-600",rodaje:"bg-cyan-100 text-cyan-600",
+    fartlek:"bg-orange-100 text-orange-500",movilidad:"bg-violet-100 text-violet-600",
+    carrera:"bg-rose-100 text-rose-600"
   };
-
   const TYPE_BADGE = {
-    fondo:     "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
-    rodaje:    "bg-cyan-50 text-cyan-700 ring-1 ring-cyan-200",
-    fartlek:   "bg-orange-50 text-orange-700 ring-1 ring-orange-200",
-    movilidad: "bg-violet-50 text-violet-700 ring-1 ring-violet-200",
-    carrera:   "bg-rose-50 text-rose-700 ring-1 ring-rose-200"
+    fondo:"bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+    rodaje:"bg-cyan-50 text-cyan-700 ring-1 ring-cyan-200",
+    fartlek:"bg-orange-50 text-orange-700 ring-1 ring-orange-200",
+    movilidad:"bg-violet-50 text-violet-700 ring-1 ring-violet-200",
+    carrera:"bg-rose-50 text-rose-700 ring-1 ring-rose-200"
   };
+  const ZONE_COLORS=["#22c55e","#84cc16","#eab308","#f97316","#ef4444"];
 
-  const ZONE_COLORS = ["#22c55e","#84cc16","#eab308","#f97316","#ef4444"];
-  const ZONE_GLOWS  = ["rgba(34,197,94,.4)","rgba(132,204,22,.4)","rgba(234,179,8,.4)","rgba(249,115,22,.4)","rgba(239,68,68,.4)"];
+  const RPE_CONFIG = [
+    {v:1, label:"1",  desc:"Reposo",       color:"text-emerald-400"},
+    {v:2, label:"2",  desc:"Muy fácil",    color:"text-emerald-500"},
+    {v:3, label:"3",  desc:"Fácil",        color:"text-lime-500"},
+    {v:4, label:"4",  desc:"Moderado",     color:"text-lime-600"},
+    {v:5, label:"5",  desc:"Algo duro",    color:"text-yellow-500"},
+    {v:6, label:"6",  desc:"Duro",         color:"text-amber-500"},
+    {v:7, label:"7",  desc:"Muy duro",     color:"text-orange-500"},
+    {v:8, label:"8",  desc:"Muy muy duro", color:"text-red-400"},
+    {v:9, label:"9",  desc:"Máximo casi",  color:"text-red-500"},
+    {v:10,label:"10", desc:"Máximo",       color:"text-red-600"}
+  ];
 </script>
 
-<!-- ══ TOP APP BAR ═════════════════════════════════════════ -->
-<header class="fixed top-0 w-full z-50 bg-slate-50/70 backdrop-blur-xl shadow-[0_12px_32px_rgba(18,28,42,0.06)] font-['Inter'] antialiased tracking-tight">
-  <div class="flex justify-between items-center px-6 h-16 w-full max-w-5xl mx-auto">
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/70 backdrop-blur-xl shadow-[0_12px_32px_rgba(18,28,42,0.06)]">
+  <div class="flex justify-between items-center px-5 h-16 w-full max-w-5xl mx-auto">
     <div class="flex items-center gap-3">
       <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
-        <span class="material-symbols-outlined text-white text-sm" style="font-size:16px">directions_run</span>
+        <span class="material-symbols-outlined text-white" style="font-size:16px">directions_run</span>
       </div>
       <span class="text-lg font-black tracking-tighter text-slate-900">SLIPSTREAM</span>
     </div>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
       <div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-low rounded-full">
-        <div class="w-2 h-2 rounded-full bg-emerald-400" id="sync-dot"></div>
+        <div class="w-2 h-2 rounded-full bg-slate-300" id="sync-dot"></div>
         <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider" id="sync-label">Sin conectar</span>
       </div>
-      <button onclick="loadSessions()" class="material-symbols-outlined text-slate-500 hover:text-primary hover:rotate-180 transition-all duration-300 active:scale-95">sync</button>
+      <button onclick="loadSessions()" class="material-symbols-outlined text-slate-400 hover:text-primary transition-all duration-300 active:scale-95 hover:rotate-180">sync</button>
+      <button onclick="switchTab('perfil')" class="material-symbols-outlined text-slate-400 hover:text-primary transition-colors active:scale-95">manage_accounts</button>
     </div>
   </div>
 </header>
@@ -174,15 +141,13 @@ tailwind.config = {
 <!-- ══ MAIN ════════════════════════════════════════════════ -->
 <main class="pt-20 pb-32 px-4 max-w-5xl mx-auto">
 
-  <!-- ── HERO COUNTDOWN ──────────────────────────────────── -->
-  <section class="py-6 slide-up">
+  <!-- HERO -->
+  <section class="py-5 slide-up">
     <div class="flex justify-between items-start">
       <div>
         <p class="text-[10px] font-bold tracking-[0.05rem] uppercase text-primary mb-1">Plan activo · 21K Buenos Aires</p>
-        <h1 class="text-4xl font-extrabold tracking-tighter text-on-surface leading-none">
-          Sub <span class="text-primary">1:40</span>
-        </h1>
-        <p class="text-xs text-on-surface-variant mt-1 font-medium">25 agosto 2026 · objetivo 4'44&quot;/km</p>
+        <h1 class="text-4xl font-extrabold tracking-tighter text-on-surface leading-none">Sub <span class="text-primary">1:40</span></h1>
+        <p class="text-xs text-on-surface-variant mt-1 font-medium">25 agosto 2026 · objetivo 4'44"/km</p>
       </div>
       <div class="text-right">
         <div class="text-5xl font-black tracking-tighter text-on-surface" id="wl-num">—</div>
@@ -191,109 +156,97 @@ tailwind.config = {
     </div>
   </section>
 
-  <!-- ── 18-WEEK PROGRESSION ─────────────────────────────── -->
-  <section class="mb-6 slide-up delay-1">
-    <div class="flex justify-between items-end mb-3">
+  <!-- PHASE BAR -->
+  <section class="mb-5 slide-up delay-1">
+    <div class="flex justify-between items-end mb-2">
       <h2 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant">18-Week Progression</h2>
       <span class="text-xs text-primary font-bold" id="phase-week-label">Sem 1 · Base</span>
     </div>
-    <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
-      <div class="grid grid-cols-4 gap-1 h-3 rounded-full overflow-hidden bg-surface-container-low mb-3">
-        <div class="bg-primary/20 h-full relative" id="phase-seg-0">
-          <div class="absolute -top-1 left-0 h-5 w-1 bg-primary rounded-full"></div>
-        </div>
-        <div class="bg-surface-container-high h-full relative" id="phase-seg-1"></div>
-        <div class="bg-surface-container-high h-full relative" id="phase-seg-2"></div>
-        <div class="bg-surface-container-highest h-full relative" id="phase-seg-3"></div>
+    <div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm">
+      <div class="grid grid-cols-4 gap-1 h-3 rounded-full overflow-hidden bg-surface-container-low mb-2">
+        <div class="bg-primary/20 h-full relative" id="phase-seg-0"><div class="absolute -top-1 left-0 h-5 w-1 bg-primary rounded-full"></div></div>
+        <div class="bg-surface-container-high h-full" id="phase-seg-1"></div>
+        <div class="bg-surface-container-high h-full" id="phase-seg-2"></div>
+        <div class="bg-surface-container-highest h-full" id="phase-seg-3"></div>
       </div>
-      <!-- Phase progress sub-bar -->
-      <div class="w-full h-1 bg-surface-container rounded-full overflow-hidden mb-3">
+      <div class="w-full h-1 bg-surface-container rounded-full overflow-hidden mb-2">
         <div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full phase-fill" id="phase-prog" style="width:0%"></div>
       </div>
       <div class="flex justify-between text-[10px] font-bold tracking-wider text-on-surface-variant uppercase">
-        <span class="text-primary" id="ph-0">Base</span>
-        <span id="ph-1">Build</span>
-        <span id="ph-2">Peak</span>
-        <span id="ph-3">Taper</span>
+        <span id="ph-0">Base</span><span id="ph-1">Build</span><span id="ph-2">Peak</span><span id="ph-3">Taper</span>
       </div>
     </div>
   </section>
 
-  <!-- ── METRIC CARDS ─────────────────────────────────────── -->
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6 slide-up delay-2">
-    <div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm group hover:shadow-md transition-shadow">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="material-symbols-outlined text-primary text-xl">format_list_numbered</span>
-        <span class="text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Sesiones</span>
-      </div>
-      <div class="text-4xl font-black tracking-tighter text-on-surface" id="mc-sessions">—</div>
+  <!-- METRIC CARDS -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5 slide-up delay-2">
+    <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-1.5 mb-2"><span class="material-symbols-outlined text-primary" style="font-size:18px">format_list_numbered</span><span class="text-[9px] font-bold uppercase text-on-surface-variant tracking-wide">Sesiones</span></div>
+      <div class="text-3xl font-black tracking-tighter text-on-surface" id="mc-sessions">—</div>
     </div>
-    <div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm group hover:shadow-md transition-shadow">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="material-symbols-outlined text-primary text-xl">route</span>
-        <span class="text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Km Total</span>
-      </div>
-      <div class="flex items-baseline gap-1">
-        <span class="text-4xl font-black tracking-tighter text-on-surface" id="mc-km">—</span>
-        <span class="text-sm font-bold text-on-surface-variant italic">km</span>
-      </div>
+    <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-1.5 mb-2"><span class="material-symbols-outlined text-primary" style="font-size:18px">route</span><span class="text-[9px] font-bold uppercase text-on-surface-variant tracking-wide">Km total</span></div>
+      <div class="flex items-baseline gap-1"><span class="text-3xl font-black tracking-tighter text-on-surface" id="mc-km">—</span><span class="text-xs font-bold text-on-surface-variant italic">km</span></div>
     </div>
-    <div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm group hover:shadow-md transition-shadow">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
-        <span class="text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Esta semana</span>
-      </div>
-      <div class="flex items-baseline gap-1">
-        <span class="text-4xl font-black tracking-tighter text-on-surface" id="mc-week">—</span>
-        <span class="text-sm font-bold text-on-surface-variant italic">km</span>
-      </div>
+    <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-1.5 mb-2"><span class="material-symbols-outlined text-primary" style="font-size:18px">calendar_today</span><span class="text-[9px] font-bold uppercase text-on-surface-variant tracking-wide">Esta semana</span></div>
+      <div class="flex items-baseline gap-1"><span class="text-3xl font-black tracking-tighter text-on-surface" id="mc-week">—</span><span class="text-xs font-bold text-on-surface-variant italic">km</span></div>
     </div>
-    <div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm group hover:shadow-md transition-shadow">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="material-symbols-outlined text-primary text-xl">speed</span>
-        <span class="text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Ritmo Z2</span>
-      </div>
-      <div class="text-2xl font-black tracking-tighter text-on-surface" id="mc-pace">—</div>
+    <div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-1.5 mb-2"><span class="material-symbols-outlined text-primary" style="font-size:18px">monitor_heart</span><span class="text-[9px] font-bold uppercase text-on-surface-variant tracking-wide">Z2 Karvonen</span></div>
+      <div class="text-xl font-black tracking-tighter text-on-surface" id="mc-z2-range">—</div>
     </div>
   </div>
 
-  <!-- ── NAV TABS ──────────────────────────────────────────── -->
-  <div class="bg-surface-container-low rounded-xl p-1 flex mb-6 slide-up delay-3" id="main-tabs">
-    <button onclick="switchTab('dashboard')" id="tab-dashboard" class="flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase rounded-lg transition-all active-pill text-white">Dashboard</button>
-    <button onclick="switchTab('estimaciones')" id="tab-estimaciones" class="flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Estimaciones</button>
-    <button onclick="switchTab('log')" id="tab-log" class="flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Cargar</button>
-    <button onclick="switchTab('historial')" id="tab-historial" class="flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Historial</button>
+  <!-- TABS -->
+  <div class="bg-surface-container-low rounded-xl p-1 flex mb-5 slide-up delay-3">
+    <button onclick="switchTab('dashboard')" id="tab-dashboard" class="flex-1 py-2 text-[10px] font-bold tracking-wide uppercase rounded-lg transition-all active-pill text-white">Dashboard</button>
+    <button onclick="switchTab('estimaciones')" id="tab-estimaciones" class="flex-1 py-2 text-[10px] font-bold tracking-wide uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Stats</button>
+    <button onclick="switchTab('log')" id="tab-log" class="flex-1 py-2 text-[10px] font-bold tracking-wide uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Cargar</button>
+    <button onclick="switchTab('historial')" id="tab-historial" class="flex-1 py-2 text-[10px] font-bold tracking-wide uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Historial</button>
+    <button onclick="switchTab('perfil')" id="tab-perfil" class="flex-1 py-2 text-[10px] font-bold tracking-wide uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface">Perfil</button>
   </div>
 
   <!-- ══════════════════════════════════════════════════════ -->
-  <!-- PANEL: DASHBOARD                                       -->
+  <!--  PANEL: DASHBOARD                                      -->
   <!-- ══════════════════════════════════════════════════════ -->
   <div id="panel-dashboard" class="panel-content slide-up delay-4">
 
-    <!-- Riegel estimate card (hero) -->
-    <div class="lg:grid lg:grid-cols-3 gap-4 mb-6">
+    <!-- Karvonen zones banner -->
+    <div class="bg-gradient-to-r from-primary/5 to-primary-container/10 border border-primary/10 rounded-xl p-4 mb-5">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Zonas Karvonen — FCMax <span class="text-primary" id="kv-fcmax">187</span> · FCRep <span class="text-primary" id="kv-fcrep">48</span></span>
+        <span class="text-[9px] text-on-surface-variant/50">FCR = <span id="kv-fcr">139</span> LPM</span>
+      </div>
+      <div class="flex gap-1.5" id="karvonen-zones-bar"></div>
+      <div class="grid grid-cols-5 gap-1.5 mt-2" id="karvonen-zones-labels"></div>
+    </div>
+
+    <!-- Riegel + Ritmos grid -->
+    <div class="lg:grid lg:grid-cols-3 gap-4 mb-5">
+      <!-- Riegel card -->
       <div class="lg:col-span-2 bg-gradient-to-br from-primary to-primary-container p-px rounded-xl shadow-lg mb-4 lg:mb-0">
-        <div class="bg-surface-container-lowest h-full w-full rounded-[11px] p-6">
-          <div class="flex justify-between items-start mb-6">
+        <div class="bg-surface-container-lowest h-full w-full rounded-[11px] p-5">
+          <div class="flex justify-between items-start mb-5">
             <div>
-              <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant mb-1">Riegel 21K — Proyección</h3>
-              <p class="text-xs text-on-surface-variant/60" id="riegel-subtitle">Basado en sesiones cargadas</p>
+              <h3 class="text-xs font-bold tracking-wide uppercase text-on-surface-variant mb-1">Riegel 21K — Proyección</h3>
+              <p class="text-xs text-on-surface-variant/60" id="riegel-subtitle">Cargando datos...</p>
             </div>
             <span class="material-symbols-outlined text-primary bg-primary/5 p-2 rounded-full">query_stats</span>
           </div>
-          <div class="flex flex-col md:flex-row items-center gap-8">
-            <div class="relative w-40 h-40 flex items-center justify-center flex-shrink-0">
-              <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 160 160">
-                <circle class="text-surface-container-low" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="6"/>
-                <circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="439.8" id="riegel-circle" stroke-dashoffset="439.8" stroke-linecap="round" stroke-width="8" style="transition:stroke-dashoffset .8s ease"/>
+          <div class="flex flex-col md:flex-row items-center gap-6">
+            <div class="relative w-36 h-36 flex items-center justify-center flex-shrink-0">
+              <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 144 144">
+                <circle class="text-surface-container-low" cx="72" cy="72" fill="transparent" r="62" stroke="currentColor" stroke-width="6"/>
+                <circle class="text-primary" cx="72" cy="72" fill="transparent" r="62" stroke="currentColor" stroke-dasharray="389.6" id="riegel-circle" stroke-dashoffset="389.6" stroke-linecap="round" stroke-width="8" style="transition:stroke-dashoffset .8s ease"/>
               </svg>
               <div class="text-center z-10">
-                <div class="text-2xl font-black tracking-tighter text-on-surface" id="riegel-time">—</div>
-                <div class="text-[9px] font-bold tracking-widest text-primary uppercase">Tiempo est.</div>
+                <div class="text-xl font-black tracking-tighter text-on-surface leading-tight" id="riegel-time">—</div>
+                <div class="text-[9px] font-bold tracking-widest text-primary uppercase">Est. 21K</div>
               </div>
             </div>
-            <div class="flex-1 space-y-4 w-full">
-              <div class="space-y-1.5">
+            <div class="flex-1 space-y-3 w-full">
+              <div class="space-y-1">
                 <div class="flex justify-between text-xs font-bold uppercase tracking-wide">
                   <span class="text-on-surface-variant">Ritmo proyectado</span>
                   <span class="text-on-surface" id="riegel-pace">—</span>
@@ -302,14 +255,26 @@ tailwind.config = {
                   <div class="h-full bg-primary rounded-full zone-bar" id="riegel-bar" style="width:0%"></div>
                 </div>
               </div>
-              <div class="grid grid-cols-2 gap-3">
+              <div class="grid grid-cols-3 gap-2">
                 <div class="bg-surface-container-low p-3 rounded-lg">
-                  <div class="text-[9px] font-bold text-on-surface-variant uppercase mb-1">Gap vs objetivo</div>
-                  <div class="text-lg font-black text-on-surface" id="riegel-gap">—</div>
+                  <div class="text-[9px] font-bold text-on-surface-variant uppercase mb-1">Gap objetivo</div>
+                  <div class="text-base font-black text-on-surface" id="riegel-gap">—</div>
                 </div>
                 <div class="bg-surface-container-low p-3 rounded-lg">
                   <div class="text-[9px] font-bold text-on-surface-variant uppercase mb-1">Confianza</div>
-                  <div class="text-lg font-black text-on-surface" id="riegel-conf">—</div>
+                  <div class="text-base font-black text-on-surface" id="riegel-conf">—</div>
+                </div>
+                <div class="bg-surface-container-low p-3 rounded-lg">
+                  <div class="text-[9px] font-bold text-on-surface-variant uppercase mb-1">VO2Max est.</div>
+                  <div class="text-base font-black text-on-surface" id="riegel-vo2">—</div>
+                </div>
+              </div>
+              <!-- 10K Riegel reference -->
+              <div class="bg-primary/5 rounded-lg p-2.5">
+                <div class="text-[9px] text-on-surface-variant/70 font-bold uppercase tracking-wide mb-1">Predicción desde 10K referencia</div>
+                <div class="flex gap-4">
+                  <span class="text-xs font-black text-on-surface">21K: <span id="riegel-10k-21k" class="text-primary">—</span></span>
+                  <span class="text-xs font-black text-on-surface">Ritmo: <span id="riegel-10k-pace" class="text-primary">—</span></span>
                 </div>
               </div>
             </div>
@@ -317,69 +282,63 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- Tempo calculator card -->
-      <div class="bg-surface-container-highest rounded-xl p-6 flex flex-col justify-between">
+      <!-- Ritmos card -->
+      <div class="bg-surface-container-highest rounded-xl p-5 flex flex-col justify-between">
         <div>
-          <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-secondary-container mb-5">Ritmos de entrenamiento</h3>
-          <div class="space-y-3">
+          <h3 class="text-xs font-bold tracking-wide uppercase text-on-secondary-container mb-4">Ritmos de entrenamiento</h3>
+          <div class="space-y-2">
             <div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg">
-              <div>
-                <div class="text-[9px] font-bold text-on-surface-variant uppercase">Z2 actual</div>
-                <div class="text-base font-black text-on-surface" id="tempo-z2">—</div>
-              </div>
+              <div><div class="text-[9px] font-bold text-on-surface-variant uppercase">Z2 actual (Karvonen)</div><div class="text-sm font-black text-on-surface" id="tempo-z2">—</div></div>
               <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
             </div>
             <div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg">
-              <div>
-                <div class="text-[9px] font-bold text-on-surface-variant uppercase">Tempo (umbral)</div>
-                <div class="text-base font-black text-on-surface" id="tempo-threshold">—</div>
-              </div>
+              <div><div class="text-[9px] font-bold text-on-surface-variant uppercase">Tempo (umbral)</div><div class="text-sm font-black text-on-surface" id="tempo-threshold">—</div></div>
               <div class="w-2 h-2 rounded-full bg-amber-400"></div>
             </div>
             <div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg">
-              <div>
-                <div class="text-[9px] font-bold text-on-surface-variant uppercase">Objetivo carrera</div>
-                <div class="text-base font-black text-on-surface">4'44"/km</div>
-              </div>
+              <div><div class="text-[9px] font-bold text-on-surface-variant uppercase">Ritmo 10K (Daniels)</div><div class="text-sm font-black text-on-surface" id="tempo-10k">—</div></div>
+              <div class="w-2 h-2 rounded-full bg-orange-400"></div>
+            </div>
+            <div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg">
+              <div><div class="text-[9px] font-bold text-on-surface-variant uppercase">Objetivo carrera</div><div class="text-sm font-black text-on-surface">4'44"/km</div></div>
               <div class="w-2 h-2 rounded-full bg-primary"></div>
             </div>
           </div>
         </div>
-        <div class="mt-4 p-4 bg-primary rounded-xl text-on-primary shadow-lg shadow-primary/20">
+        <div class="mt-3 p-4 bg-primary rounded-xl text-on-primary shadow-lg shadow-primary/20">
           <div class="text-[9px] font-bold uppercase tracking-widest opacity-80 mb-0.5">Fartlek semanal</div>
           <div class="text-2xl font-black tracking-tighter" id="tempo-fartlek">—</div>
         </div>
       </div>
     </div>
 
-    <!-- Weekly progression -->
-    <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm mb-4">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Progresión semanal</h3>
+    <!-- Weekly grid -->
+    <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm mb-4">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="text-xs font-bold tracking-wide uppercase text-on-surface-variant">Progresión semanal</h3>
         <span class="text-[10px] text-primary font-bold" id="weekly-total-label"></span>
       </div>
-      <div id="weekly-grid" class="space-y-1.5"></div>
+      <div id="weekly-grid" class="space-y-1"></div>
     </div>
 
     <!-- Recent sessions -->
-    <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant mb-3">Últimas sesiones</h3>
+    <h3 class="text-xs font-bold tracking-wide uppercase text-on-surface-variant mb-3">Últimas sesiones</h3>
     <div id="recent-list"></div>
-
   </div>
 
   <!-- ══════════════════════════════════════════════════════ -->
-  <!-- PANEL: ESTIMACIONES                                    -->
+  <!--  PANEL: ESTIMACIONES / STATS                           -->
   <!-- ══════════════════════════════════════════════════════ -->
   <div id="panel-estimaciones" class="panel-content hidden">
 
-    <!-- Z2 Pace Evolution chart (hero) -->
-    <section class="mb-6">
-      <div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm relative overflow-hidden">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-3">
+    <!-- Z2 Chart hero -->
+    <section class="mb-5">
+      <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm relative overflow-hidden">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-3">
           <div>
-            <h2 class="text-base font-bold tracking-tight text-on-surface mb-1 uppercase">Z2 Pace Evolution</h2>
-            <div class="flex items-center gap-3">
-              <span class="text-[10px] font-bold tracking-[0.05rem] text-primary bg-primary-container/20 px-2 py-1 rounded">ZONE 2 OPTIMIZATION</span>
+            <h2 class="text-base font-bold tracking-tight text-on-surface uppercase mb-1">Z2 Pace Evolution</h2>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold text-primary bg-primary-container/20 px-2 py-1 rounded">ZONE 2 OPTIMIZATION</span>
               <span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-widest">18 SEMANAS</span>
             </div>
           </div>
@@ -388,11 +347,9 @@ tailwind.config = {
             <span class="text-[10px] font-bold text-primary tracking-widest uppercase" id="est-z2-delta"></span>
           </div>
         </div>
-        <!-- Chart area -->
-        <div class="h-56 w-full relative">
-          <!-- Target line -->
+        <div class="h-52 w-full relative">
           <div class="absolute border-t-2 border-primary-container border-dashed z-10 opacity-60" style="top:38%;left:0;right:0">
-            <span class="absolute -top-5 right-0 text-[9px] font-black text-primary tracking-widest uppercase">Target: 4'44&quot;</span>
+            <span class="absolute -top-5 right-0 text-[9px] font-black text-primary tracking-widest uppercase">Target 4'44"</span>
           </div>
           <div class="absolute bottom-0 left-0 w-full h-px bg-outline-variant/30"></div>
           <canvas id="canvas-z2" class="absolute inset-0 w-full h-full z-20" style="pointer-events:none"></canvas>
@@ -406,71 +363,56 @@ tailwind.config = {
       </div>
     </section>
 
-    <!-- Stats bento grid -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-      <!-- Aerobic efficiency -->
-      <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
-        <div class="flex justify-between items-start mb-5">
-          <div>
-            <p class="text-[9px] font-black text-on-surface-variant tracking-[0.1em] uppercase mb-1">Eficiencia aeróbica</p>
-            <h3 class="text-2xl font-black text-on-surface tracking-tighter" id="est-eff-val">—</h3>
-          </div>
-          <div class="bg-surface-container-low p-2 rounded-lg text-primary">
-            <span class="material-symbols-outlined">trending_up</span>
-          </div>
+    <!-- Pa:Hr + TRIMP + VO2 -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+      <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm hover:shadow-md transition-all">
+        <div class="flex justify-between items-start mb-4">
+          <div><p class="text-[9px] font-black text-on-surface-variant tracking-wide uppercase mb-1">Pa:Hr Eficiencia</p><h3 class="text-2xl font-black text-on-surface tracking-tighter" id="est-pahr-val">—</h3></div>
+          <div class="bg-surface-container-low p-2 rounded-lg text-primary"><span class="material-symbols-outlined">trending_up</span></div>
         </div>
-        <div class="h-1.5 bg-surface-container rounded-full overflow-hidden mb-3">
-          <div class="h-full bg-primary-container rounded-full zone-bar zone-glow" id="est-eff-bar" style="width:0%"></div>
+        <div class="h-1.5 bg-surface-container rounded-full overflow-hidden mb-2">
+          <div class="h-full bg-primary-container rounded-full zone-bar zone-glow" id="est-pahr-bar" style="width:0%"></div>
         </div>
-        <p class="text-[10px] font-bold text-on-surface-variant/60 uppercase" id="est-eff-sub">Ratio ritmo/FC Z2</p>
+        <p class="text-[9px] font-bold text-on-surface-variant/60 uppercase" id="est-pahr-sub">m/min por LPM</p>
       </div>
 
-      <!-- Average HR Z2 -->
       <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
-        <div class="flex justify-between items-start mb-5">
-          <div>
-            <p class="text-[9px] font-black text-on-surface-variant tracking-[0.1em] uppercase mb-1">FC promedio Z2</p>
-            <h3 class="text-2xl font-black text-on-surface tracking-tighter" id="est-hr-val">—</h3>
-          </div>
-          <div class="bg-surface-container-low p-2 rounded-lg text-secondary">
-            <span class="material-symbols-outlined">favorite</span>
-          </div>
+        <div class="flex justify-between items-start mb-4">
+          <div><p class="text-[9px] font-black text-on-surface-variant tracking-wide uppercase mb-1">VO2Max estimado</p><h3 class="text-2xl font-black text-on-surface tracking-tighter" id="est-vo2-val">—</h3></div>
+          <div class="bg-surface-container-low p-2 rounded-lg text-secondary"><span class="material-symbols-outlined">air</span></div>
         </div>
-        <div class="flex gap-1 items-end h-8 mb-3" id="hr-mini-bars">
+        <div class="flex gap-1 items-end h-8 mb-2" id="vo2-mini-bars">
           <div class="flex-1 bg-surface-container-high h-4 rounded-t"></div>
-          <div class="flex-1 bg-surface-container-high h-6 rounded-t"></div>
           <div class="flex-1 bg-surface-container-high h-5 rounded-t"></div>
-          <div class="flex-1 bg-surface-container-high h-8 rounded-t"></div>
+          <div class="flex-1 bg-surface-container-high h-6 rounded-t"></div>
           <div class="flex-1 bg-primary-container h-7 rounded-t"></div>
+          <div class="flex-1 bg-surface-container-high h-5 rounded-t"></div>
         </div>
-        <p class="text-[10px] font-bold text-on-surface-variant/60 uppercase">Tu Z2 real: 140–148 LPM</p>
+        <p class="text-[9px] font-bold text-on-surface-variant/60 uppercase">ml/kg/min · objetivo ~48</p>
       </div>
 
-      <!-- Gap cards -->
       <div class="flex flex-col gap-3">
         <div class="flex-1 bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between">
-          <div>
-            <p class="text-[9px] font-black text-on-surface-variant tracking-widest uppercase">Gap vs 4'44&quot;</p>
-            <p class="text-lg font-black text-on-surface" id="est-gap-val">—</p>
-          </div>
+          <div><p class="text-[9px] font-black text-on-surface-variant tracking-widest uppercase">Gap vs 4'44"</p><p class="text-lg font-black text-on-surface" id="est-gap-val">—</p></div>
           <span class="material-symbols-outlined text-outline-variant">flag</span>
         </div>
         <div class="flex-1 bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between">
-          <div>
-            <p class="text-[9px] font-black text-on-surface-variant tracking-widest uppercase">Sesiones Z2</p>
-            <p class="text-lg font-black text-on-surface" id="est-z2-count">—</p>
-          </div>
+          <div><p class="text-[9px] font-black text-on-surface-variant tracking-widest uppercase">FC prom Z2</p><p class="text-lg font-black text-on-surface" id="est-hr-val">—</p></div>
+          <span class="material-symbols-outlined text-outline-variant">favorite</span>
+        </div>
+        <div class="flex-1 bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between">
+          <div><p class="text-[9px] font-black text-on-surface-variant tracking-widest uppercase">Sesiones Z2</p><p class="text-lg font-black text-on-surface" id="est-z2-count">—</p></div>
           <span class="material-symbols-outlined text-outline-variant">directions_run</span>
         </div>
       </div>
     </section>
 
-    <!-- Training volume heatmap -->
-    <section class="mb-6">
-      <h4 class="text-[10px] font-black tracking-[0.2em] text-on-surface-variant mb-4 uppercase">Volumen semanal acumulado</h4>
+    <!-- Heatmap -->
+    <section class="mb-5">
+      <h4 class="text-[10px] font-black tracking-[0.2em] text-on-surface-variant mb-3 uppercase">Volumen semanal acumulado</h4>
       <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
         <div class="grid grid-cols-9 gap-2" id="heatmap-grid"></div>
-        <div class="flex items-center gap-2 mt-4 justify-end">
+        <div class="flex items-center gap-2 mt-3 justify-end">
           <span class="text-[9px] text-on-surface-variant/50 font-bold uppercase">Menos</span>
           <div class="flex gap-1">
             <div class="w-3 h-3 rounded-sm bg-surface-container-high"></div>
@@ -483,522 +425,713 @@ tailwind.config = {
         </div>
       </div>
     </section>
-
   </div>
 
   <!-- ══════════════════════════════════════════════════════ -->
-  <!-- PANEL: LOG SESIÓN                                      -->
+  <!--  PANEL: LOG SESIÓN                                     -->
   <!-- ══════════════════════════════════════════════════════ -->
   <div id="panel-log" class="panel-content hidden">
-    <div class="mb-8">
-      <p class="text-[10px] font-bold tracking-[0.05rem] uppercase text-primary mb-1">NUEVA ENTRADA</p>
+    <div class="mb-6">
+      <p class="text-[10px] font-bold tracking-wide uppercase text-primary mb-1">NUEVA ENTRADA</p>
       <h2 class="text-3xl font-extrabold tracking-tighter text-on-surface">Cargar Sesión</h2>
     </div>
 
-    <!-- Workout type selection -->
-    <section class="mb-8">
-      <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant mb-4">Tipo de sesión</h3>
+    <!-- Type selector -->
+    <section class="mb-6">
+      <h3 class="text-xs font-bold tracking-wide uppercase text-on-surface-variant mb-3">Tipo de sesión</h3>
       <div class="grid grid-cols-3 md:grid-cols-5 gap-3">
-        <button onclick="selType('fondo')" id="tb-fondo"
-          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-emerald-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-emerald-100">
-          <div class="w-11 h-11 rounded-full bg-emerald-100 text-emerald-500 flex items-center justify-center mb-2.5">
-            <span class="material-symbols-outlined text-xl">route</span>
-          </div>
-          <span class="text-[10px] font-bold tracking-tight text-on-surface">Fondo</span>
+        <button onclick="selType('fondo')" id="tb-fondo" class="type-btn flex flex-col items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-emerald-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-emerald-100">
+          <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-500 flex items-center justify-center mb-2"><span class="material-symbols-outlined" style="font-size:20px">route</span></div>
+          <span class="text-[10px] font-bold text-on-surface">Fondo</span>
         </button>
-        <button onclick="selType('rodaje')" id="tb-rodaje"
-          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-cyan-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-cyan-100">
-          <div class="w-11 h-11 rounded-full bg-cyan-100 text-cyan-500 flex items-center justify-center mb-2.5">
-            <span class="material-symbols-outlined text-xl">directions_run</span>
-          </div>
-          <span class="text-[10px] font-bold tracking-tight text-on-surface">Rodaje Z2</span>
+        <button onclick="selType('rodaje')" id="tb-rodaje" class="type-btn flex flex-col items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-cyan-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-cyan-100">
+          <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-500 flex items-center justify-center mb-2"><span class="material-symbols-outlined" style="font-size:20px">directions_run</span></div>
+          <span class="text-[10px] font-bold text-on-surface">Rodaje Z2</span>
         </button>
-        <button onclick="selType('fartlek')" id="tb-fartlek"
-          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-orange-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-orange-100">
-          <div class="w-11 h-11 rounded-full bg-orange-100 text-orange-400 flex items-center justify-center mb-2.5">
-            <span class="material-symbols-outlined text-xl">timer</span>
-          </div>
-          <span class="text-[10px] font-bold tracking-tight text-on-surface">Fartlek</span>
+        <button onclick="selType('fartlek')" id="tb-fartlek" class="type-btn flex flex-col items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-orange-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-orange-100">
+          <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-400 flex items-center justify-center mb-2"><span class="material-symbols-outlined" style="font-size:20px">timer</span></div>
+          <span class="text-[10px] font-bold text-on-surface">Fartlek</span>
         </button>
-        <button onclick="selType('movilidad')" id="tb-movilidad"
-          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-violet-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-violet-100">
-          <div class="w-11 h-11 rounded-full bg-violet-100 text-violet-500 flex items-center justify-center mb-2.5">
-            <span class="material-symbols-outlined text-xl">self_improvement</span>
-          </div>
-          <span class="text-[10px] font-bold tracking-tight text-on-surface">Movilidad</span>
+        <button onclick="selType('movilidad')" id="tb-movilidad" class="type-btn flex flex-col items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-violet-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-violet-100">
+          <div class="w-10 h-10 rounded-full bg-violet-100 text-violet-500 flex items-center justify-center mb-2"><span class="material-symbols-outlined" style="font-size:20px">self_improvement</span></div>
+          <span class="text-[10px] font-bold text-on-surface">Movilidad</span>
         </button>
-        <button onclick="selType('carrera')" id="tb-carrera"
-          class="type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-rose-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-rose-100">
-          <div class="w-11 h-11 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center mb-2.5">
-            <span class="material-symbols-outlined text-xl">emoji_events</span>
-          </div>
-          <span class="text-[10px] font-bold tracking-tight text-on-surface">Carrera</span>
+        <button onclick="selType('carrera')" id="tb-carrera" class="type-btn flex flex-col items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm hover:bg-rose-50 transition-all duration-200 active:scale-95 border border-transparent hover:border-rose-100">
+          <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-500 flex items-center justify-center mb-2"><span class="material-symbols-outlined" style="font-size:20px">emoji_events</span></div>
+          <span class="text-[10px] font-bold text-on-surface">Carrera</span>
         </button>
       </div>
     </section>
 
-    <div class="space-y-5">
-      <!-- Fecha -->
+    <div class="space-y-4">
       <div>
         <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Fecha</label>
-        <input type="date" id="f-date"
-          class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface"/>
+        <input type="date" id="f-date" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface"/>
       </div>
 
       <!-- Run fields -->
       <div id="run-fields" class="hidden space-y-4">
-        <!-- Dynamic inputs bento grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Metrics left -->
           <div class="space-y-3">
             <div>
               <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Distancia (km)</label>
-              <input type="number" id="f-dist" step="0.01" placeholder="6.84"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+              <input type="number" id="f-dist" step="0.01" placeholder="6.84" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
             </div>
             <div>
-              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Duración (min)</label>
-              <input type="text" id="f-dur" placeholder="42:33"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Duración (mm:ss)</label>
+              <input type="text" id="f-dur" placeholder="35:05" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
             </div>
             <div>
-              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Ritmo prom (min/km)</label>
-              <input type="text" id="f-pace" placeholder="6'05&quot;"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Ritmo prom (mm:ss/km)</label>
+              <input type="text" id="f-pace" placeholder="6:05" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
             </div>
           </div>
-          <!-- Metrics right -->
           <div class="space-y-3">
             <div>
               <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">FC promedio (LPM)</label>
-              <input type="number" id="f-hr" placeholder="157"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+              <input type="number" id="f-hr" placeholder="157" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
             </div>
             <div>
               <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Cadencia (ppm)</label>
-              <input type="number" id="f-cad" placeholder="168"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+              <input type="number" id="f-cad" placeholder="168" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Calorías</label>
-                <input type="number" id="f-kcal" placeholder="480"
-                  class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+                <input type="number" id="f-kcal" placeholder="480" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
               </div>
               <div>
                 <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Potencia (W)</label>
-                <input type="number" id="f-pow" placeholder="—"
-                  class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+                <input type="number" id="f-pow" placeholder="—" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Estructura (fartlek) -->
+        <!-- Fartlek structure -->
         <div id="f-structure-wrap" class="hidden">
-          <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Estructura del entrenamiento</label>
-          <textarea id="f-structure" placeholder="15' suave + 4×6' Z3 (rec 2') + 10' suave · ~5'20''/km" rows="2"
-            class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30 resize-none"></textarea>
+          <div class="bg-orange-50 border border-orange-100 rounded-xl p-4">
+            <h4 class="text-xs font-bold tracking-widest uppercase text-orange-700 mb-3">Estructura del fartlek</h4>
+            <div class="mb-3">
+              <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Descripción general</label>
+              <input type="text" id="f-struct-desc" placeholder="10' suave + 5×(1' fuerte / 2' Z2) + 10' suave" class="w-full bg-white border-0 border-b-2 border-orange-200 px-3 py-2.5 rounded-t-lg text-sm font-medium text-on-surface placeholder:text-on-surface-variant/30"/>
+            </div>
+            <div class="grid grid-cols-3 gap-3 mb-3">
+              <div>
+                <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Cant. series</label>
+                <input type="number" id="f-rep-count" placeholder="5" min="1" max="20" class="w-full bg-white border-0 border-b-2 border-orange-200 px-3 py-2 rounded-t-lg text-sm font-bold text-on-surface placeholder:text-on-surface-variant/30" oninput="updateRepRows()"/>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Duración c/u</label>
+                <input type="text" id="f-rep-dur" placeholder="1:00" class="w-full bg-white border-0 border-b-2 border-orange-200 px-3 py-2 rounded-t-lg text-sm font-bold text-on-surface placeholder:text-on-surface-variant/30"/>
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Recuperación</label>
+                <input type="text" id="f-rep-rec" placeholder="2:00" class="w-full bg-white border-0 border-b-2 border-orange-200 px-3 py-2 rounded-t-lg text-sm font-bold text-on-surface placeholder:text-on-surface-variant/30"/>
+              </div>
+            </div>
+            <div id="rep-rows-wrap" class="hidden">
+              <div class="flex items-center justify-between mb-2">
+                <label class="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant">Ritmo alcanzado por serie (mm:ss/km)</label>
+                <span class="text-[9px] text-on-surface-variant/50">→ distancia calculada</span>
+              </div>
+              <div id="rep-rows" class="space-y-2"></div>
+            </div>
+          </div>
+          <input type="hidden" id="f-structure"/>
         </div>
 
-        <!-- Heart Rate Zones -->
-        <div class="bg-surface-container-low p-5 rounded-xl">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xs font-bold tracking-[0.05rem] uppercase text-on-surface-variant">Zonas cardíacas</h3>
-            <span class="text-[10px] text-on-surface-variant/50 font-medium">opcional · mm:ss</span>
+        <!-- Zones -->
+        <div class="bg-surface-container-low p-4 rounded-xl">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xs font-bold tracking-wide uppercase text-on-surface-variant">Zonas cardíacas</h3>
+            <span class="text-[10px] text-on-surface-variant/50">opcional · mm:ss</span>
           </div>
-          <div class="grid grid-cols-5 gap-3">
-            <div class="text-center">
-              <div class="text-[9px] font-black uppercase tracking-wider text-emerald-600 bg-emerald-100 px-2 py-1 rounded-md mb-2">Z1</div>
-              <input type="text" id="z1" placeholder="—"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
-            </div>
-            <div class="text-center">
-              <div class="text-[9px] font-black uppercase tracking-wider text-lime-700 bg-lime-100 px-2 py-1 rounded-md mb-2">Z2</div>
-              <input type="text" id="z2" placeholder="—"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
-            </div>
-            <div class="text-center">
-              <div class="text-[9px] font-black uppercase tracking-wider text-amber-700 bg-amber-100 px-2 py-1 rounded-md mb-2">Z3</div>
-              <input type="text" id="z3" placeholder="1:56"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
-            </div>
-            <div class="text-center">
-              <div class="text-[9px] font-black uppercase tracking-wider text-orange-700 bg-orange-100 px-2 py-1 rounded-md mb-2">Z4</div>
-              <input type="text" id="z4" placeholder="21:19"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
-            </div>
-            <div class="text-center">
-              <div class="text-[9px] font-black uppercase tracking-wider text-rose-700 bg-rose-100 px-2 py-1 rounded-md mb-2">Z5</div>
-              <input type="text" id="z5" placeholder="—"
-                class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-2 py-2 rounded-t-md text-sm font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/>
-            </div>
+          <div class="grid grid-cols-5 gap-2">
+            <div class="text-center"><div class="text-[9px] font-black uppercase tracking-wider text-emerald-600 bg-emerald-100 px-1 py-1 rounded-md mb-1.5">Z1</div><input type="text" id="z1" placeholder="—" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-1 py-2 rounded-t-md text-xs font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/></div>
+            <div class="text-center"><div class="text-[9px] font-black uppercase tracking-wider text-lime-700 bg-lime-100 px-1 py-1 rounded-md mb-1.5">Z2</div><input type="text" id="z2" placeholder="—" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-1 py-2 rounded-t-md text-xs font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/></div>
+            <div class="text-center"><div class="text-[9px] font-black uppercase tracking-wider text-amber-700 bg-amber-100 px-1 py-1 rounded-md mb-1.5">Z3</div><input type="text" id="z3" placeholder="1:56" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-1 py-2 rounded-t-md text-xs font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/></div>
+            <div class="text-center"><div class="text-[9px] font-black uppercase tracking-wider text-orange-700 bg-orange-100 px-1 py-1 rounded-md mb-1.5">Z4</div><input type="text" id="z4" placeholder="21:19" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-1 py-2 rounded-t-md text-xs font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/></div>
+            <div class="text-center"><div class="text-[9px] font-black uppercase tracking-wider text-rose-700 bg-rose-100 px-1 py-1 rounded-md mb-1.5">Z5</div><input type="text" id="z5" placeholder="—" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-1 py-2 rounded-t-md text-xs font-bold text-on-surface text-center placeholder:text-on-surface-variant/30"/></div>
           </div>
+        </div>
+
+        <!-- RPE -->
+        <div class="bg-surface-container-low p-4 rounded-xl">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xs font-bold tracking-wide uppercase text-on-surface-variant">Esfuerzo percibido (RPE)</h3>
+            <span class="text-sm font-black text-on-surface" id="rpe-display">—</span>
+          </div>
+          <div class="flex gap-1.5 flex-wrap" id="rpe-buttons"></div>
+          <input type="hidden" id="f-rpe"/>
         </div>
       </div>
 
       <!-- Movilidad -->
       <div id="f-movilidad-wrap" class="hidden">
         <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Descripción</label>
-        <textarea id="f-movilidad" placeholder="20 min movilidad de cadera + core · series de planchas y glúteos" rows="3"
-          class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30 resize-none"></textarea>
+        <textarea id="f-movilidad" placeholder="20 min movilidad de cadera + core · series de planchas y glúteos" rows="3" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30 resize-none"></textarea>
       </div>
 
-      <!-- Notes -->
       <div>
         <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Notas</label>
-        <textarea id="f-notes" placeholder="¿Cómo te sentiste? ¿Algo para ajustar?" rows="2"
-          class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30 resize-none"></textarea>
+        <textarea id="f-notes" placeholder="¿Cómo te sentiste? ¿Algo para ajustar?" rows="2" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface placeholder:text-on-surface-variant/30 resize-none"></textarea>
       </div>
 
-      <!-- Submit -->
-      <div class="pt-4">
-        <button onclick="saveSession()" id="save-btn"
-          class="w-full py-4 rounded-xl active-pill text-white font-black tracking-tight text-base shadow-[0_12px_32px_rgba(0,104,119,0.25)] active:scale-95 transition-all duration-150">
-          GUARDAR SESIÓN
-        </button>
-        <button onclick="clearForm()" class="w-full mt-2 py-3 text-[11px] font-bold tracking-widest uppercase text-on-surface-variant hover:text-on-surface transition-colors">
-          Limpiar formulario
-        </button>
+      <div class="pt-2">
+        <button onclick="saveSession()" id="save-btn" class="w-full py-4 rounded-xl active-pill text-white font-black tracking-tight text-base shadow-[0_12px_32px_rgba(0,104,119,0.25)] active:scale-95 transition-all duration-150">GUARDAR SESIÓN</button>
+        <button onclick="clearForm()" class="w-full mt-2 py-2.5 text-[11px] font-bold tracking-widest uppercase text-on-surface-variant hover:text-on-surface transition-colors">Limpiar formulario</button>
       </div>
     </div>
   </div>
 
   <!-- ══════════════════════════════════════════════════════ -->
-  <!-- PANEL: HISTORIAL                                       -->
+  <!--  PANEL: HISTORIAL                                      -->
   <!-- ══════════════════════════════════════════════════════ -->
   <div id="panel-historial" class="panel-content hidden">
     <div id="history-list"></div>
   </div>
 
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!--  PANEL: PERFIL                                         -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div id="panel-perfil" class="panel-content hidden">
+    <div class="mb-6">
+      <p class="text-[10px] font-bold tracking-wide uppercase text-primary mb-1">ATLETA</p>
+      <h2 class="text-3xl font-extrabold tracking-tighter text-on-surface">Perfil</h2>
+    </div>
+
+    <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm mb-4">
+      <h3 class="text-xs font-bold tracking-wide uppercase text-on-surface-variant mb-4">Datos fisiológicos</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">FC Máxima (LPM)</label>
+          <input type="number" id="p-fcmax" placeholder="187" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface"/>
+          <p class="text-[9px] text-on-surface-variant/50 mt-1">Tanaka: 208 − (0.7 × edad) = 187</p>
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">FC Reposo (LPM)</label>
+          <input type="number" id="p-fcrep" placeholder="48" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface"/>
+          <p class="text-[9px] text-on-surface-variant/50 mt-1">Medila apenas te despertás</p>
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Peso (kg)</label>
+          <input type="number" id="p-peso" placeholder="86" step="0.1" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface"/>
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold tracking-widest uppercase text-on-surface-variant mb-1.5">Mejor 10K (mm:ss)</label>
+          <input type="text" id="p-10k" placeholder="60:00" class="w-full bg-surface-container-lowest border-0 border-b-2 border-surface-container-high px-4 py-3 rounded-t-lg text-base font-medium text-on-surface"/>
+          <p class="text-[9px] text-on-surface-variant/50 mt-1">Referencia para Riegel y Daniels</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Karvonen zones preview -->
+    <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm mb-4">
+      <h3 class="text-xs font-bold tracking-wide uppercase text-on-surface-variant mb-4">Zonas Karvonen calculadas</h3>
+      <div id="perfil-zones-table" class="space-y-2"></div>
+    </div>
+
+    <!-- VO2Max & Riegel preview -->
+    <div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm mb-4">
+      <h3 class="text-xs font-bold tracking-wide uppercase text-on-surface-variant mb-4">Proyecciones desde 10K</h3>
+      <div id="perfil-projections" class="space-y-2"></div>
+    </div>
+
+    <button onclick="savePerfil()" class="w-full py-4 rounded-xl active-pill text-white font-black tracking-tight text-base shadow-[0_12px_32px_rgba(0,104,119,0.25)] active:scale-95 transition-all">GUARDAR PERFIL</button>
+    <div id="perfil-saved-msg" class="text-center text-[11px] font-bold text-primary mt-2 min-h-5"></div>
+  </div>
+
 </main>
 
-<!-- ══ BOTTOM NAV ══════════════════════════════════════════ -->
+<!-- BOTTOM NAV -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-slate-50/70 backdrop-blur-xl z-50 rounded-t-2xl shadow-[0_-8px_24px_rgba(18,28,42,0.06)] border-t border-slate-200/15">
-  <button onclick="switchTab('dashboard')" id="nav-dashboard"
-    class="flex flex-col items-center justify-center nav-active px-3 py-1 font-['Inter'] text-[10px] font-bold tracking-[0.05rem] uppercase active:scale-90 duration-150">
-    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">speed</span>
-    <span>Dashboard</span>
+  <button onclick="switchTab('dashboard')" id="nav-dashboard" class="flex flex-col items-center justify-center nav-active px-3 py-1 text-[9px] font-bold tracking-wide uppercase active:scale-90 duration-150">
+    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">speed</span><span>Dashboard</span>
   </button>
-  <button onclick="switchTab('estimaciones')" id="nav-estimaciones"
-    class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 font-['Inter'] text-[10px] font-bold tracking-[0.05rem] uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
-    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">insights</span>
-    <span>Stats</span>
+  <button onclick="switchTab('estimaciones')" id="nav-estimaciones" class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 text-[9px] font-bold tracking-wide uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
+    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">insights</span><span>Stats</span>
   </button>
-  <button onclick="switchTab('log')" id="nav-log"
-    class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 font-['Inter'] text-[10px] font-bold tracking-[0.05rem] uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
-    <span class="material-symbols-outlined mb-0.5" style="font-size:22px;font-variation-settings:'FILL' 1">add_circle</span>
-    <span>Log</span>
+  <button onclick="switchTab('log')" id="nav-log" class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 text-[9px] font-bold tracking-wide uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
+    <span class="material-symbols-outlined mb-0.5" style="font-size:22px;font-variation-settings:'FILL' 1">add_circle</span><span>Log</span>
   </button>
-  <button onclick="switchTab('historial')" id="nav-historial"
-    class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 font-['Inter'] text-[10px] font-bold tracking-[0.05rem] uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
-    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">calendar_today</span>
-    <span>Historial</span>
+  <button onclick="switchTab('historial')" id="nav-historial" class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 text-[9px] font-bold tracking-wide uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
+    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">calendar_today</span><span>Historial</span>
+  </button>
+  <button onclick="switchTab('perfil')" id="nav-perfil" class="flex flex-col items-center justify-center text-slate-400 px-3 py-1 text-[9px] font-bold tracking-wide uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150">
+    <span class="material-symbols-outlined mb-0.5" style="font-size:22px">manage_accounts</span><span>Perfil</span>
   </button>
 </nav>
 
-<!-- ══ TOAST ═══════════════════════════════════════════════ -->
+<!-- TOAST -->
 <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 translate-y-12 opacity-0 transition-all duration-300 z-50 pointer-events-none">
-  <div class="bg-inverse-surface text-inverse-on-surface px-5 py-3 rounded-full text-sm font-bold shadow-xl" id="toast-inner"></div>
+  <div class="px-5 py-3 rounded-full text-sm font-bold shadow-xl" id="toast-inner"></div>
 </div>
 
-<!-- ══ SCRIPTS ══════════════════════════════════════════════ -->
 <script>
-
-// ── STATE ──────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════════════
 let sessions    = [];
 let currentType = '';
 let isSaving    = false;
-const PANELS    = ['dashboard','estimaciones','log','historial'];
-const NAV_IDS   = ['dashboard','estimaciones','log','historial'];
+let perfil      = {...PERFIL_DEFAULT};
+const PANELS    = ['dashboard','estimaciones','log','historial','perfil'];
 
-// ── INIT ───────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+  loadPerfil();
   document.getElementById('f-date').value = todayStr();
   updateCountdown();
   updatePhaseUI();
+  renderKarvonenBanner();
+  renderRPEButtons();
   loadSessions();
   setInterval(updateCountdown, 60000);
 });
 
-function todayStr() { return new Date().toISOString().split('T')[0]; }
+function todayStr(){ return new Date().toISOString().split('T')[0]; }
 
-// ── TABS ───────────────────────────────────────────────────
-function switchTab(id) {
-  PANELS.forEach(p => {
-    document.getElementById('panel-' + p).classList.toggle('hidden', p !== id);
-    document.getElementById('tab-' + p).className =
-      p === id
-        ? 'flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase rounded-lg transition-all active-pill text-white'
-        : 'flex-1 py-2.5 text-[10px] font-bold tracking-[0.05rem] uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface';
-  });
-  NAV_IDS.forEach(n => {
-    const el = document.getElementById('nav-' + n);
-    if (!el) return;
-    el.className = n === id
-      ? 'flex flex-col items-center justify-center nav-active px-3 py-1 font-[\'Inter\'] text-[10px] font-bold tracking-[0.05rem] uppercase active:scale-90 duration-150'
-      : 'flex flex-col items-center justify-center text-slate-400 px-3 py-1 font-[\'Inter\'] text-[10px] font-bold tracking-[0.05rem] uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150';
-  });
-  if (id === 'dashboard')    renderDashboard();
-  if (id === 'estimaciones') renderEstimaciones();
-  if (id === 'historial')    renderHistory();
+// ══════════════════════════════════════════════════════════
+//  PERFIL — guardado en localStorage
+// ══════════════════════════════════════════════════════════
+function loadPerfil(){
+  try {
+    const saved = localStorage.getItem('slipstream_perfil');
+    if(saved) perfil = {...PERFIL_DEFAULT, ...JSON.parse(saved)};
+  } catch(e){}
+  syncPerfilInputs();
+}
+function syncPerfilInputs(){
+  const set = (id,v) => { const el=document.getElementById(id); if(el) el.value=v||''; };
+  set('p-fcmax',  perfil.fc_max);
+  set('p-fcrep',  perfil.fc_reposo);
+  set('p-peso',   perfil.peso_kg);
+  set('p-10k',    perfil.mejor_10k);
+}
+function savePerfil(){
+  perfil.fc_max    = parseInt(document.getElementById('p-fcmax').value)  || perfil.fc_max;
+  perfil.fc_reposo = parseInt(document.getElementById('p-fcrep').value)  || perfil.fc_reposo;
+  perfil.peso_kg   = parseFloat(document.getElementById('p-peso').value) || perfil.peso_kg;
+  perfil.mejor_10k = document.getElementById('p-10k').value              || perfil.mejor_10k;
+  localStorage.setItem('slipstream_perfil', JSON.stringify(perfil));
+  renderKarvonenBanner();
+  renderPerfilZonesTable();
+  renderPerfilProjections();
+  renderDashboard();
+  const msg = document.getElementById('perfil-saved-msg');
+  msg.textContent = '✓ Perfil guardado';
+  setTimeout(()=>msg.textContent='', 2500);
+  toast('✓ Perfil actualizado');
 }
 
-// ── COUNTDOWN & PHASE ──────────────────────────────────────
-function updateCountdown() {
-  const weeks = Math.max(0, Math.ceil((RACE_DATE - new Date()) / (7 * 864e5)));
+// ══════════════════════════════════════════════════════════
+//  KARVONEN
+// ══════════════════════════════════════════════════════════
+function karvonen(pct){
+  // ((FCMax - FCRep) × pct) + FCRep
+  return Math.round((perfil.fc_max - perfil.fc_reposo) * pct + perfil.fc_reposo);
+}
+function karvonenZones(){
+  return [
+    {z:'Z1', lo:0.50, hi:0.60, color:'bg-emerald-200', text:'text-emerald-800', label:'Recuperación'},
+    {z:'Z2', lo:0.60, hi:0.70, color:'bg-lime-200',    text:'text-lime-800',    label:'Base aeróbica'},
+    {z:'Z3', lo:0.70, hi:0.80, color:'bg-amber-200',   text:'text-amber-800',  label:'Tempo'},
+    {z:'Z4', lo:0.80, hi:0.90, color:'bg-orange-200',  text:'text-orange-800', label:'Intervalos'},
+    {z:'Z5', lo:0.90, hi:1.00, color:'bg-red-200',     text:'text-red-800',    label:'Máximo'},
+  ].map(z=>({...z, fc_lo: karvonen(z.lo), fc_hi: karvonen(z.hi)}));
+}
+function renderKarvonenBanner(){
+  const fcr = perfil.fc_max - perfil.fc_reposo;
+  document.getElementById('kv-fcmax').textContent = perfil.fc_max;
+  document.getElementById('kv-fcrep').textContent = perfil.fc_reposo;
+  document.getElementById('kv-fcr').textContent   = fcr;
+  // metric card
+  document.getElementById('mc-z2-range').textContent = karvonen(0.60)+'–'+karvonen(0.70)+' LPM';
+
+  const zones = karvonenZones();
+  const barColors = ['#22c55e','#84cc16','#eab308','#f97316','#ef4444'];
+  // bar
+  document.getElementById('karvonen-zones-bar').innerHTML = zones.map((z,i)=>
+    `<div class="h-3 rounded-full flex-1" style="background:${barColors[i]}" title="${z.z}: ${z.fc_lo}–${z.fc_hi} LPM"></div>`
+  ).join('');
+  // labels
+  document.getElementById('karvonen-zones-labels').innerHTML = zones.map((z,i)=>
+    `<div class="text-center">
+      <div class="text-[9px] font-black" style="color:${barColors[i]}">${z.z}</div>
+      <div class="text-[9px] font-bold text-on-surface-variant">${z.fc_lo}–${z.fc_hi}</div>
+    </div>`
+  ).join('');
+}
+function renderPerfilZonesTable(){
+  const zones = karvonenZones();
+  document.getElementById('perfil-zones-table').innerHTML = zones.map(z=>
+    `<div class="flex items-center justify-between py-2 border-b border-surface-container-low last:border-0">
+      <div class="flex items-center gap-2">
+        <span class="karvonen-badge ${z.color} ${z.text}">${z.z}</span>
+        <span class="text-xs text-on-surface-variant">${z.label}</span>
+      </div>
+      <div class="text-right">
+        <span class="text-sm font-black text-on-surface">${z.fc_lo}–${z.fc_hi} LPM</span>
+        <span class="text-[10px] text-on-surface-variant ml-2">${Math.round(z.lo*100)}–${Math.round(z.hi*100)}%</span>
+      </div>
+    </div>`
+  ).join('');
+}
+function renderPerfilProjections(){
+  const tenK = perfil.mejor_10k;
+  const tenKSec = paceToSec(tenK) > 0 ? paceToSec(tenK)*10 : parseMins(tenK);
+  if(!tenKSec){ document.getElementById('perfil-projections').innerHTML='<p class="text-xs text-on-surface-variant/50">Ingresá tu mejor 10K para ver proyecciones.</p>'; return; }
+
+  const r21k  = riegel(tenKSec, 10, 21.0975);
+  const r42k  = riegel(tenKSec, 10, 42.195);
+  const pace21 = r21k / 21.0975;
+  const pace42 = r42k / 42.195;
+  const vo2   = estimateVO2Max(tenKSec, 10);
+  const gap   = Math.round(pace21 - TARGET_PACE_SEC);
+  // Daniels T-pace ≈ 10K pace + 12s
+  const tenKPaceSec = tenKSec / 10;
+  const tempoSec = tenKPaceSec + 12;
+
+  document.getElementById('perfil-projections').innerHTML = [
+    ['21K proyectado (Riegel)', formatTimeHMS(r21k)],
+    ['Ritmo 21K proyectado',    secToPace(pace21)+'/km'],
+    ['42K proyectado (Riegel)', formatTimeHMS(r42k)],
+    ['Gap vs objetivo 4\'44"',  (gap>0?'+':'')+gap+'s/km'],
+    ['Ritmo tempo (Daniels)',   secToPace(tempoSec)+'/km  (10K+12s)'],
+    ['VO2Max estimado',         vo2.toFixed(1)+' ml/kg/min'],
+  ].map(([k,v])=>
+    `<div class="flex justify-between items-center py-2 border-b border-surface-container-low last:border-0">
+      <span class="text-xs text-on-surface-variant">${k}</span>
+      <span class="text-sm font-black text-on-surface">${v}</span>
+    </div>`
+  ).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+//  RIEGEL & VO2MAX
+// ══════════════════════════════════════════════════════════
+function riegel(t1sec, d1km, d2km){
+  return t1sec * Math.pow(d2km/d1km, 1.06);
+}
+function estimateVO2Max(tenKSec, distKm){
+  // Fórmula simplificada: VO2Max ≈ (distancia_m / tiempo_min) * 0.2 + 3.5
+  const timeMins = tenKSec / 60;
+  const distM    = distKm * 1000;
+  const speed    = distM / timeMins; // m/min
+  return Math.min(80, Math.max(20, speed * 0.2 + 3.5 - (perfil.peso_kg * 0.001)));
+}
+
+// ══════════════════════════════════════════════════════════
+//  TABS & NAV
+// ══════════════════════════════════════════════════════════
+function switchTab(id){
+  PANELS.forEach(p=>{
+    document.getElementById('panel-'+p).classList.toggle('hidden', p!==id);
+    const tab = document.getElementById('tab-'+p);
+    if(tab) tab.className = p===id
+      ? 'flex-1 py-2 text-[10px] font-bold tracking-wide uppercase rounded-lg transition-all active-pill text-white'
+      : 'flex-1 py-2 text-[10px] font-bold tracking-wide uppercase text-on-surface-variant rounded-lg transition-all hover:text-on-surface';
+    const nav = document.getElementById('nav-'+p);
+    if(nav) nav.className = p===id
+      ? 'flex flex-col items-center justify-center nav-active px-3 py-1 text-[9px] font-bold tracking-wide uppercase active:scale-90 duration-150'
+      : 'flex flex-col items-center justify-center text-slate-400 px-3 py-1 text-[9px] font-bold tracking-wide uppercase hover:text-cyan-400 transition-colors active:scale-90 duration-150';
+  });
+  if(id==='dashboard')    renderDashboard();
+  if(id==='estimaciones') renderEstimaciones();
+  if(id==='historial')    renderHistory();
+  if(id==='perfil')       { renderPerfilZonesTable(); renderPerfilProjections(); }
+}
+
+// ══════════════════════════════════════════════════════════
+//  COUNTDOWN & PHASE
+// ══════════════════════════════════════════════════════════
+function updateCountdown(){
+  const weeks = Math.max(0, Math.ceil((RACE_DATE - new Date())/(7*864e5)));
   document.getElementById('wl-num').textContent = weeks;
 }
-
-function currentWeekNum() {
-  return Math.min(TOTAL_WEEKS, Math.max(1, Math.floor((new Date() - PLAN_START) / (7 * 864e5)) + 1));
+function currentWeekNum(){
+  return Math.min(TOTAL_WEEKS, Math.max(1, Math.floor((new Date()-PLAN_START)/(7*864e5))+1));
 }
-
-function getPhase(w) { return PHASES.find(p => w <= p.end) || PHASES[3]; }
-
-function updatePhaseUI() {
-  const w  = currentWeekNum();
-  const ph = getPhase(w);
-  const pi = PHASES.indexOf(ph);
-  document.getElementById('phase-week-label').textContent = `Sem ${w} · ${ph.label}`;
-
-  // Color active segments
-  PHASES.forEach((p, i) => {
-    const seg = document.getElementById('phase-seg-' + i);
-    if (i < pi)       seg.className = seg.className.replace(/bg-\S+/, 'bg-primary/40');
-    else if (i === pi) seg.className = seg.className.replace(/bg-\S+/, 'bg-gradient-to-r from-primary/20 to-primary');
+function getPhase(w){ return PHASES.find(p=>w<=p.end)||PHASES[3]; }
+function updatePhaseUI(){
+  const w=currentWeekNum(), ph=getPhase(w), pi=PHASES.indexOf(ph);
+  document.getElementById('phase-week-label').textContent=`Sem ${w} · ${ph.label}`;
+  PHASES.forEach((_,i)=>{
+    const seg=document.getElementById('phase-seg-'+i);
+    if(i<pi) seg.style.background='rgba(0,104,119,0.4)';
+    else if(i===pi) seg.style.background='linear-gradient(to right, rgba(0,104,119,0.3), #006877)';
+    document.getElementById('ph-'+i).className = i===pi ? 'text-primary font-black' : '';
   });
-
-  // Highlight active phase label
-  PHASES.forEach((p, i) => {
-    const el = document.getElementById('ph-' + i);
-    el.className = i === pi ? 'text-primary font-black' : '';
-  });
-
-  // Progress within current phase
-  const phStart = pi > 0 ? PHASES[pi-1].end + 1 : 1;
-  const pct = ((w - phStart) / (ph.end - phStart + 1) * 100).toFixed(1);
-  document.getElementById('phase-prog').style.width = Math.max(4, pct) + '%';
+  const phStart=pi>0?PHASES[pi-1].end+1:1;
+  const pct=((w-phStart)/(ph.end-phStart+1)*100).toFixed(1);
+  document.getElementById('phase-prog').style.width=Math.max(4,pct)+'%';
+}
+function weekOf(dateStr){
+  const d=new Date(dateStr+'T12:00:00');
+  return Math.min(TOTAL_WEEKS,Math.max(1,Math.floor((d-PLAN_START)/(7*864e5))+1));
 }
 
-function weekOf(dateStr) {
-  const d = new Date(dateStr + 'T12:00:00');
-  return Math.min(TOTAL_WEEKS, Math.max(1, Math.floor((d - PLAN_START) / (7 * 864e5)) + 1));
-}
-
-// ── API ────────────────────────────────────────────────────
-async function loadSessions() {
+// ══════════════════════════════════════════════════════════
+//  API
+// ══════════════════════════════════════════════════════════
+async function loadSessions(){
   setSyncStatus('loading');
-  try {
-    const r = await fetch(GAS_URL + '?t=' + Date.now());
-    const d = await r.json();
-    sessions = d.sessions || [];
+  try{
+    const r=await fetch(GAS_URL+'?t='+Date.now());
+    const d=await r.json();
+    sessions=d.sessions||[];
     setSyncStatus('ok');
-    const activePanel = document.querySelector('.panel-content:not(.hidden)').id.replace('panel-','');
-    if (activePanel === 'dashboard')    renderDashboard();
-    if (activePanel === 'estimaciones') renderEstimaciones();
-    if (activePanel === 'historial')    renderHistory();
+    const active=document.querySelector('.panel-content:not(.hidden)');
+    const id=active?active.id.replace('panel-',''):'dashboard';
+    if(id==='dashboard')    renderDashboard();
+    if(id==='estimaciones') renderEstimaciones();
+    if(id==='historial')    renderHistory();
     updateMetricCards();
-  } catch (e) {
+  }catch(e){
     setSyncStatus('err');
-    toast('Error de conexión. Revisá la URL del deployment.', true);
+    toast('Error de conexión. Revisá la URL.',true);
   }
 }
-
-async function apiPost(payload) {
-  const r = await fetch(GAS_URL, { method:'POST', body: JSON.stringify(payload) });
+async function apiPost(payload){
+  const r=await fetch(GAS_URL,{method:'POST',body:JSON.stringify(payload)});
   return await r.json();
 }
+function setSyncStatus(state){
+  const dot=document.getElementById('sync-dot'), lbl=document.getElementById('sync-label');
+  if(state==='ok'){dot.className='w-2 h-2 rounded-full bg-emerald-400';lbl.textContent='Sincronizado '+new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});}
+  else if(state==='err'){dot.className='w-2 h-2 rounded-full bg-rose-400';lbl.textContent='Error sync';}
+  else{dot.className='w-2 h-2 rounded-full bg-amber-400 syncing';lbl.textContent='Sincronizando...';}
+}
 
-function setSyncStatus(state) {
-  const dot = document.getElementById('sync-dot');
-  const lbl = document.getElementById('sync-label');
-  if (state === 'ok') {
-    dot.className = 'w-2 h-2 rounded-full bg-emerald-400';
-    lbl.textContent = 'Sincronizado ' + new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
-  } else if (state === 'err') {
-    dot.className = 'w-2 h-2 rounded-full bg-rose-400';
-    lbl.textContent = 'Error de sync';
-  } else {
-    dot.className = 'w-2 h-2 rounded-full bg-amber-400 syncing';
-    lbl.textContent = 'Sincronizando...';
+// ══════════════════════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════════════════════
+function runSessions(){ return sessions.filter(s=>['fondo','rodaje','fartlek','carrera'].includes(s.tipo)); }
+function z2Sessions(){  return sessions.filter(s=>s.tipo==='rodaje'); }
+
+function paceToSec(str){
+  if(!str) return 0;
+  const s=str.trim();
+  if(s.includes("'")){
+    const p=s.replace(/"/g,'').split("'");
+    return (parseInt(p[0])||0)*60+(parseInt(p[1])||0);
   }
+  const p=s.split(':');
+  if(p.length>=2) return (parseInt(p[0])||0)*60+(parseInt(p[1])||0);
+  return parseFloat(s)*60||0;
+}
+function secToPace(sec){
+  if(!sec||sec<=0) return '—';
+  const m=Math.floor(sec/60), s=Math.round(sec%60);
+  return m+"'"+String(s).padStart(2,'0')+'"';
+}
+function parseMins(str){
+  if(!str) return 0;
+  const s=str.trim();
+  const p=s.replace(/['"]/g,'').split(':');
+  return p.length===2?(parseInt(p[0])||0)*60+(parseInt(p[1])||0):(parseFloat(p[0])||0)*60;
+}
+function formatTimeHMS(totalSec){
+  const h=Math.floor(totalSec/3600),m=Math.floor((totalSec%3600)/60),s=Math.round(totalSec%60);
+  return h+"h"+String(m).padStart(2,"'")+String(s).padStart(2,'0')+'"';
+}
+function parseDuration(str){
+  if(!str) return '';
+  const s=str.trim();
+  if(s.includes(':')){const p=s.split(':');return ((parseInt(p[0])||0)+(parseInt(p[1])||0)/60).toFixed(4);}
+  return parseFloat(s)||'';
 }
 
-// ── UTILS ─────────────────────────────────────────────────
-function runSessions() { return sessions.filter(s => ['fondo','rodaje','fartlek','carrera'].includes(s.tipo)); }
-function z2Sessions()  { return sessions.filter(s => s.tipo === 'rodaje'); }
-
-function paceToSec(str) {
-  if (!str) return 0;
-  const s = str.replace(/['"]/g,'').trim();
-  const p = s.split(':');
-  return p.length === 2 ? parseInt(p[0])*60+parseInt(p[1]) : parseFloat(p[0])*60;
-}
-function secToPace(sec) {
-  if (!sec||sec<=0) return '—';
-  const m = Math.floor(sec/60), s = Math.round(sec%60);
-  return m + "'" + String(s).padStart(2,'0') + '"';
-}
-function parseMins(str) {
-  if (!str) return 0;
-  const p = str.replace(/['"]/g,'').trim().split(':');
-  return p.length===2 ? parseInt(p[0])*60+parseInt(p[1]) : parseFloat(p[0])*60;
-}
-function formatTimeHMS(totalSec) {
-  const h=Math.floor(totalSec/3600), m=Math.floor((totalSec%3600)/60), s=Math.round(totalSec%60);
-  return h+'h'+String(m).padStart(2,'0')+"'"+String(s).padStart(2,'0')+'"';
-}
-
-// ── METRIC CARDS ──────────────────────────────────────────
-function updateMetricCards() {
-  const run = runSessions();
-  const totalKm = run.reduce((a,s)=>a+(parseFloat(s.distancia_km)||0),0);
-  const now = new Date(), monStart = new Date(now);
+// ══════════════════════════════════════════════════════════
+//  METRIC CARDS
+// ══════════════════════════════════════════════════════════
+function updateMetricCards(){
+  const run=runSessions();
+  const totalKm=run.reduce((a,s)=>a+(parseFloat(s.distancia_km)||0),0);
+  const now=new Date(), monStart=new Date(now);
   monStart.setDate(now.getDate()-((now.getDay()+6)%7)); monStart.setHours(0,0,0,0);
-  const weekKm = run.filter(s=>new Date(s.fecha+'T12:00:00')>=monStart).reduce((a,s)=>a+(parseFloat(s.distancia_km)||0),0);
-  const z2 = z2Sessions().filter(s=>s.ritmo_prom);
-  const lastPace = z2.length ? z2[z2.length-1].ritmo_prom : '—';
-
-  document.getElementById('mc-sessions').textContent = sessions.length;
-  document.getElementById('mc-km').textContent       = totalKm.toFixed(1);
-  document.getElementById('mc-week').textContent     = weekKm.toFixed(1);
-  document.getElementById('mc-pace').textContent     = lastPace;
+  const weekKm=run.filter(s=>new Date(s.fecha+'T12:00:00')>=monStart).reduce((a,s)=>a+(parseFloat(s.distancia_km)||0),0);
+  document.getElementById('mc-sessions').textContent=sessions.length;
+  document.getElementById('mc-km').textContent=totalKm.toFixed(1);
+  document.getElementById('mc-week').textContent=weekKm.toFixed(1);
 }
 
-// ── DASHBOARD ─────────────────────────────────────────────
-function renderDashboard() {
+// ══════════════════════════════════════════════════════════
+//  DASHBOARD
+// ══════════════════════════════════════════════════════════
+function renderDashboard(){
   updateMetricCards();
+  renderKarvonenBanner();
   renderRiegelCard();
   renderTempoCard();
   renderWeeklyGrid();
-  const recent = [...sessions].reverse().slice(0,4);
-  const el = document.getElementById('recent-list');
-  el.innerHTML = recent.length
+  const recent=[...sessions].reverse().slice(0,4);
+  document.getElementById('recent-list').innerHTML=recent.length
     ? recent.map(s=>sessionCard(s,false)).join('')
-    : '<p class="text-center text-on-surface-variant/50 text-sm py-12 font-medium">No hay sesiones cargadas aún.</p>';
+    : '<p class="text-center text-on-surface-variant/50 text-sm py-12">No hay sesiones cargadas aún.</p>';
 }
 
-function renderRiegelCard() {
-  const run = runSessions();
-  const fondos   = run.filter(s=>['fondo','carrera'].includes(s.tipo)&&s.distancia_km&&s.ritmo_prom);
-  const all      = [...fondos].sort((a,b)=>parseFloat(b.distancia_km)-parseFloat(a.distancia_km));
+function renderRiegelCard(){
+  // Primero intentar desde fondos/carreras reales
+  const run=runSessions();
+  const refs=run.filter(s=>['fondo','carrera'].includes(s.tipo)&&s.distancia_km&&s.ritmo_prom)
+    .sort((a,b)=>parseFloat(b.distancia_km)-parseFloat(a.distancia_km));
 
-  if (!all.length) {
-    document.getElementById('riegel-time').textContent = '—';
-    document.getElementById('riegel-pace').textContent = '—';
-    document.getElementById('riegel-gap').textContent  = '—';
-    document.getElementById('riegel-conf').textContent = '—';
-    document.getElementById('riegel-subtitle').textContent = 'Cargá un fondo o carrera para estimar';
+  // Desde 10K del perfil (siempre disponible)
+  const tenKSec = parseMins(perfil.mejor_10k);
+  if(tenKSec>0){
+    const r21k=riegel(tenKSec,10,21.0975);
+    const pace21=r21k/21.0975;
+    const gap=Math.round(pace21-TARGET_PACE_SEC);
+    const vo2=estimateVO2Max(tenKSec,10);
+    document.getElementById('riegel-10k-21k').textContent=formatTimeHMS(r21k);
+    document.getElementById('riegel-10k-pace').textContent=secToPace(pace21)+'/km';
+    document.getElementById('riegel-vo2').textContent=vo2.toFixed(1);
+  }
+
+  if(!refs.length){
+    ['riegel-time','riegel-pace','riegel-gap','riegel-conf'].forEach(id=>document.getElementById(id).textContent='—');
+    document.getElementById('riegel-subtitle').textContent='Cargá un fondo largo para proyección dinámica';
     return;
   }
 
-  const ref  = all[0];
-  const dist = parseFloat(ref.distancia_km);
-  const pSec = paceToSec(ref.ritmo_prom);
-  const totalSec = pSec * dist;
-  const est21k   = totalSec * Math.pow(21.0975/dist, 1.06);
-  const paceSec  = est21k / 21.0975;
-  const targetSec = 4*60+44;
-  const gapSec   = Math.round(paceSec - targetSec);
-  const conf     = dist >= 15 ? 'Alta' : dist >= 10 ? 'Media' : 'Baja';
+  const ref=refs[0];
+  const dist=parseFloat(ref.distancia_km);
+  const pSec=paceToSec(ref.ritmo_prom);
+  if(!dist||!pSec){return;}
+  const totalSec=pSec*dist;
+  const est21k=riegel(totalSec,dist,21.0975);
+  const paceSec=est21k/21.0975;
+  const gap=Math.round(paceSec-TARGET_PACE_SEC);
+  const conf=dist>=15?'Alta':dist>=10?'Media':'Baja';
 
-  document.getElementById('riegel-time').textContent = formatTimeHMS(est21k);
-  document.getElementById('riegel-pace').textContent = secToPace(paceSec) + '/km';
-  document.getElementById('riegel-gap').textContent  = (gapSec>0?'+':'')+gapSec+'s';
-  document.getElementById('riegel-conf').textContent = conf;
-  document.getElementById('riegel-subtitle').textContent = `Basado en ${dist}km (${ref.fecha})`;
+  document.getElementById('riegel-time').textContent=formatTimeHMS(est21k);
+  document.getElementById('riegel-pace').textContent=secToPace(paceSec)+'/km';
+  document.getElementById('riegel-gap').textContent=(gap>0?'+':'')+gap+'s';
+  document.getElementById('riegel-conf').textContent=conf;
+  document.getElementById('riegel-subtitle').textContent=`Dinámico · basado en ${dist}km (${ref.fecha})`;
 
-  // Progress ring: 0% = 5'30", 100% = 4'44"
-  const minSec=5*60+30, maxSec=4*60+44;
-  const pct = Math.max(0,Math.min(1,(5*60+30-paceSec)/(5*60+30-4*60+44)||0));
-  const circ = 439.8;
-  document.getElementById('riegel-circle').setAttribute('stroke-dashoffset', circ-(circ*(Math.min(1,Math.max(0,(5*60+30-paceSec)/(46))))));
-  document.getElementById('riegel-bar').style.width = Math.max(10,Math.min(100,(5*60+30-paceSec)/46*100)).toFixed(0)+'%';
+  const circ=389.6;
+  const progress=Math.max(0,Math.min(1,(5*60+30-paceSec)/(5*60+30-TARGET_PACE_SEC)));
+  document.getElementById('riegel-circle').setAttribute('stroke-dashoffset',circ-(circ*progress));
+  document.getElementById('riegel-bar').style.width=Math.max(5,Math.min(100,progress*100)).toFixed(0)+'%';
 }
 
-function renderTempoCard() {
-  const z2 = z2Sessions().filter(s=>s.ritmo_prom);
-  if (!z2.length) return;
-  const best = [...z2].sort((a,b)=>paceToSec(a.ritmo_prom)-paceToSec(b.ritmo_prom))[0];
-  const z2Sec = paceToSec(best.ritmo_prom);
-  const tempoSec = z2Sec - 30;
-  const fartlekSec = z2Sec - 15; // fartlek pace is between Z2 and tempo
+function renderTempoCard(){
+  const z2=z2Sessions().filter(s=>s.ritmo_prom&&paceToSec(s.ritmo_prom)>0);
+  const sorted=[...z2].sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  const latest=sorted.length?sorted[sorted.length-1]:null;
 
-  document.getElementById('tempo-z2').textContent        = secToPace(z2Sec) + '/km';
-  document.getElementById('tempo-threshold').textContent = secToPace(tempoSec) + '/km';
-  document.getElementById('tempo-fartlek').textContent   = secToPace(fartlekSec) + '/km';
+  // Z2 pace desde sesión o desde Karvonen
+  let z2PaceSec=0;
+  if(latest){
+    const p=paceToSec(latest.ritmo_prom);
+    if(p>=240&&p<=540) z2PaceSec=p;
+  }
+  const z2Display = z2PaceSec>0 ? secToPace(z2PaceSec)+'/km' : '—';
+
+  // Daniels: tempo = ritmo 10K + 12s
+  const tenKSec=parseMins(perfil.mejor_10k);
+  const tenKPaceSec=tenKSec>0 ? tenKSec/10 : 0;
+  const danielsTempo=tenKPaceSec>0 ? secToPace(tenKPaceSec+12)+'/km' : '—';
+  const danielsInterval=tenKPaceSec>0 ? secToPace(tenKPaceSec-10)+'/km' : '—';
+
+  document.getElementById('tempo-z2').textContent        = z2Display;
+  document.getElementById('tempo-threshold').textContent = z2PaceSec>0 ? secToPace(z2PaceSec-25)+'/km' : '—';
+  document.getElementById('tempo-10k').textContent       = danielsTempo;
+  document.getElementById('tempo-fartlek').textContent   = z2PaceSec>0 ? secToPace(z2PaceSec-18)+'/km' : danielsInterval;
 }
 
-function renderWeeklyGrid() {
-  const run = runSessions();
-  const wkKm = {};
-  for (let w=1;w<=TOTAL_WEEKS;w++) wkKm[w]=0;
+function renderWeeklyGrid(){
+  const run=runSessions();
+  const wkKm={};
+  for(let w=1;w<=TOTAL_WEEKS;w++) wkKm[w]=0;
   run.forEach(s=>{const w=weekOf(s.fecha);if(wkKm[w]!==undefined)wkKm[w]+=parseFloat(s.distancia_km)||0;});
-  const maxKm = Math.max(...Object.values(wkKm),1);
-  const cw = currentWeekNum();
-  const totalKm = Object.values(wkKm).reduce((a,b)=>a+b,0);
-  document.getElementById('weekly-total-label').textContent = totalKm.toFixed(1) + ' km total';
+  const maxKm=Math.max(...Object.values(wkKm),1);
+  const cw=currentWeekNum();
+  document.getElementById('weekly-total-label').textContent=Object.values(wkKm).reduce((a,b)=>a+b,0).toFixed(1)+' km total';
 
+  const phColors=['#22c55e55','#22d3ee55','#f59e0b55','#ef444455'];
   let html='';
   for(let w=1;w<=TOTAL_WEEKS;w++){
     const km=wkKm[w], pct=(km/maxKm*100).toFixed(1);
     const isCur=w===cw;
     const phIdx=PHASES.findIndex(p=>w<=p.end);
-    const barColors=['bg-primary/30','bg-gradient-to-r from-primary/40 to-primary','bg-primary/60','bg-primary'];
-    html+=`<div class="flex items-center gap-2 py-0.5 group">
-      <span class="text-[10px] font-bold ${isCur?'text-primary':'text-on-surface-variant/50'} min-w-[52px]">Sem ${w}</span>
-      <div class="flex-1 h-2 bg-surface-container rounded-full overflow-hidden">
-        <div class="h-full rounded-full ${isCur?'bg-primary-container zone-glow':barColors[phIdx]||'bg-primary/30'} zone-bar" style="width:${pct}%"></div>
+    const ph=PHASES[phIdx];
+    const target=ph?ph.km_target:40;
+    const onTarget=km>=target*0.85;
+    html+=`<div class="flex items-center gap-2 py-0.5">
+      <span class="text-[9px] font-bold ${isCur?'text-primary':'text-on-surface-variant/50'} w-12">S${w}</span>
+      <div class="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden">
+        <div class="h-full rounded-full zone-bar" style="width:${pct}%;background:${isCur?'#22d3ee':phColors[phIdx]||'#006877'}"></div>
       </div>
-      <span class="text-[10px] font-bold text-on-surface-variant/60 min-w-[44px] text-right">${km>0?km.toFixed(1)+'km':''}</span>
+      <span class="text-[9px] font-bold text-on-surface-variant/60 w-12 text-right">${km>0?km.toFixed(1)+'km':''}</span>
+      ${km>0&&onTarget?'<span class="text-[9px] text-emerald-500">✓</span>':km>0?'':''}
     </div>`;
   }
   document.getElementById('weekly-grid').innerHTML=html;
 }
 
-// ── ESTIMACIONES ──────────────────────────────────────────
-function renderEstimaciones() {
-  const z2 = z2Sessions().filter(s=>s.ritmo_prom);
-  const all = z2Sessions().filter(s=>s.ritmo_prom&&s.fc_prom);
+// ══════════════════════════════════════════════════════════
+//  ESTIMACIONES
+// ══════════════════════════════════════════════════════════
+function renderEstimaciones(){
+  const z2=z2Sessions().filter(s=>s.ritmo_prom);
+  const withHR=z2.filter(s=>s.fc_prom);
 
-  // Z2 display
   if(z2.length){
-    const lastZ2=z2[z2.length-1];
-    document.getElementById('est-z2-display').textContent=lastZ2.ritmo_prom+'/km';
+    const sorted=[...z2].sort((a,b)=>a.fecha.localeCompare(b.fecha));
+    const last=sorted[sorted.length-1];
+    document.getElementById('est-z2-display').textContent=last.ritmo_prom+'/km';
     if(z2.length>=2){
-      const prev=z2[z2.length-2];
-      const delta=paceToSec(prev.ritmo_prom)-paceToSec(lastZ2.ritmo_prom);
+      const prev=sorted[sorted.length-2];
+      const delta=paceToSec(prev.ritmo_prom)-paceToSec(last.ritmo_prom);
       document.getElementById('est-z2-delta').textContent=(delta>0?'↓ −':'↑ +')+Math.abs(Math.round(delta))+'s vs anterior';
     }
     document.getElementById('chart-empty-state').style.display='none';
+
+    // Gap
+    const latestSec=paceToSec(last.ritmo_prom);
+    if(latestSec>=240&&latestSec<=540){
+      const tempoSec=latestSec-25;
+      const gap=Math.round(tempoSec-TARGET_PACE_SEC);
+      document.getElementById('est-gap-val').textContent=(gap>0?'+':'')+gap+'s/km';
+    }
   }
 
-  // Efficiency
-  if(all.length>=2){
-    const sorted=[...all].sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
-    const ratios=sorted.map(s=>paceToSec(s.ritmo_prom)/parseFloat(s.fc_prom));
-    const delta=ratios[ratios.length-1]-ratios[0];
-    const effLabel=delta<-0.01?'Mejorando ↓':delta>0.05?'Revisar carga ↑':'Estable →';
-    document.getElementById('est-eff-val').textContent=effLabel;
-    document.getElementById('est-eff-bar').style.width=delta<-0.01?'80%':delta<0.01?'50%':'30%';
-    document.getElementById('est-eff-sub').textContent=`${all.length} sesiones Z2 analizadas`;
+  // Pa:Hr (pace in m/min / HR)
+  if(withHR.length>=2){
+    const sorted=[...withHR].sort((a,b)=>a.fecha.localeCompare(b.fecha));
+    const pahrs=sorted.map(s=>{
+      const p=paceToSec(s.ritmo_prom);
+      const hr=parseFloat(s.fc_prom);
+      if(!p||!hr) return null;
+      return (1000/p)/hr; // m/min per BPM
+    }).filter(Boolean);
+    if(pahrs.length>=2){
+      const latest=pahrs[pahrs.length-1];
+      const delta=pahrs[pahrs.length-1]-pahrs[0];
+      document.getElementById('est-pahr-val').textContent=latest.toFixed(3);
+      document.getElementById('est-pahr-sub').textContent=(delta>0?'↑ mejorando':'↓ revisar')+' ('+pahrs.length+' sesiones)';
+      document.getElementById('est-pahr-bar').style.width=Math.min(100,latest*500).toFixed(0)+'%';
+    }
   }
 
-  // HR
+  // FC prom Z2
   if(z2.length){
     const hrs=z2.filter(s=>s.fc_prom).map(s=>parseFloat(s.fc_prom)).filter(Boolean);
-    const avgHr=hrs.length?Math.round(hrs.reduce((a,b)=>a+b,0)/hrs.length):null;
-    if(avgHr) document.getElementById('est-hr-val').textContent=avgHr+' LPM';
-    renderHrMiniBars(hrs);
+    const avg=hrs.length?Math.round(hrs.reduce((a,b)=>a+b,0)/hrs.length):null;
+    if(avg) document.getElementById('est-hr-val').textContent=avg+' LPM';
   }
 
-  // Gap
-  if(z2.length){
-    const best=[...z2].sort((a,b)=>paceToSec(a.ritmo_prom)-paceToSec(b.ritmo_prom))[0];
-    const tempoSec=paceToSec(best.ritmo_prom)-30;
-    const gap=Math.round(tempoSec-(4*60+44));
-    document.getElementById('est-gap-val').textContent=(gap>0?'+':'')+gap+'s/km';
+  // VO2Max desde perfil
+  const tenKSec=parseMins(perfil.mejor_10k);
+  if(tenKSec>0){
+    const vo2=estimateVO2Max(tenKSec,10);
+    document.getElementById('est-vo2-val').textContent=vo2.toFixed(1);
   }
 
   document.getElementById('est-z2-count').textContent=z2.length+' sesiones';
@@ -1006,22 +1139,10 @@ function renderEstimaciones() {
   renderHeatmap();
 }
 
-function renderHrMiniBars(hrs) {
-  if(!hrs.length) return;
-  const max=Math.max(...hrs), min=Math.min(...hrs), range=max-min||1;
-  const el=document.getElementById('hr-mini-bars');
-  el.innerHTML=hrs.slice(-7).map((h,i)=>{
-    const pct=Math.round(((h-min)/range)*70+20);
-    const isCur=i===hrs.slice(-7).length-1;
-    return `<div class="flex-1 ${isCur?'bg-primary-container':'bg-surface-container-high'} rounded-t" style="height:${pct}%"></div>`;
-  }).join('');
-}
-
-function renderZ2Chart(z2data) {
-  const canvas = document.getElementById('canvas-z2');
-  if (!z2data.length) return;
+function renderZ2Chart(z2data){
+  const canvas=document.getElementById('canvas-z2');
   const ctx=canvas.getContext('2d');
-  const W=canvas.offsetWidth||700, H=canvas.offsetHeight||224;
+  const W=canvas.offsetWidth||700, H=canvas.offsetHeight||208;
   canvas.width=W*devicePixelRatio; canvas.height=H*devicePixelRatio;
   canvas.style.width=W+'px'; canvas.style.height=H+'px';
   ctx.scale(devicePixelRatio,devicePixelRatio);
@@ -1034,216 +1155,293 @@ function renderZ2Chart(z2data) {
   const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
   const secs=data.map(d=>d.sec);
   const minS=Math.min(...secs)-20, maxS=Math.max(...secs)+20;
-  const minW=1, maxW=TOTAL_WEEKS, wRange=maxW-minW;
 
-  const xOf=w=>pad.l+(w-minW)/wRange*cw;
+  const xOf=w=>pad.l+(w-1)/(TOTAL_WEEKS-1)*cw;
   const yOf=s=>pad.t+(maxS-s)/(maxS-minS)*ch;
 
-  // Target line (4'44")
-  const ty=yOf(4*60+44);
+  // Target line
+  const ty=yOf(TARGET_PACE_SEC);
   if(ty>0&&ty<H){
     ctx.setLineDash([5,5]); ctx.strokeStyle='rgba(0,104,119,0.4)'; ctx.lineWidth=1.5;
     ctx.beginPath(); ctx.moveTo(0,ty); ctx.lineTo(W,ty); ctx.stroke(); ctx.setLineDash([]);
   }
 
-  // Fill area
+  // Fill
   const grad=ctx.createLinearGradient(0,0,0,H);
-  grad.addColorStop(0,'rgba(34,211,238,0.15)'); grad.addColorStop(1,'rgba(34,211,238,0)');
+  grad.addColorStop(0,'rgba(34,211,238,0.18)'); grad.addColorStop(1,'rgba(34,211,238,0)');
   ctx.beginPath();
-  data.forEach((d,i)=>{ const x=xOf(d.w),y=yOf(d.sec); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
-  ctx.lineTo(xOf(data[data.length-1].w),H);
-  ctx.lineTo(xOf(data[0].w),H);
+  data.forEach((d,i)=>{ i===0?ctx.moveTo(xOf(d.w),yOf(d.sec)):ctx.lineTo(xOf(d.w),yOf(d.sec)); });
+  ctx.lineTo(xOf(data[data.length-1].w),H); ctx.lineTo(xOf(data[0].w),H);
   ctx.closePath(); ctx.fillStyle=grad; ctx.fill();
 
   // Line
   ctx.beginPath(); ctx.strokeStyle='#22d3ee'; ctx.lineWidth=2.5; ctx.lineJoin='round';
-  data.forEach((d,i)=>{ const x=xOf(d.w),y=yOf(d.sec); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+  data.forEach((d,i)=>{ i===0?ctx.moveTo(xOf(d.w),yOf(d.sec)):ctx.lineTo(xOf(d.w),yOf(d.sec)); });
   ctx.stroke();
 
-  // Dots + glow
+  // Trend line
+  if(data.length>=3){
+    const n=data.length, xs=data.map(d=>d.w), ys=data.map(d=>d.sec);
+    const mx=xs.reduce((a,b)=>a+b)/n, my=ys.reduce((a,b)=>a+b)/n;
+    const slope=xs.reduce((a,x,i)=>a+(x-mx)*(ys[i]-my),0)/xs.reduce((a,x)=>a+(x-mx)**2,0);
+    const inter=my-slope*mx;
+    ctx.setLineDash([3,3]); ctx.strokeStyle='rgba(0,104,119,0.3)'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(xOf(1),yOf(slope*1+inter)); ctx.lineTo(xOf(TOTAL_WEEKS),yOf(slope*TOTAL_WEEKS+inter));
+    ctx.stroke(); ctx.setLineDash([]);
+  }
+
+  // Dots
   data.forEach((d,i)=>{
-    const x=xOf(d.w),y=yOf(d.sec),isLast=i===data.length-1;
-    if(isLast){ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);ctx.fillStyle='rgba(34,211,238,0.2)';ctx.fill();}
+    const x=xOf(d.w), y=yOf(d.sec), isLast=i===data.length-1;
+    if(isLast){ctx.beginPath();ctx.arc(x,y,9,0,Math.PI*2);ctx.fillStyle='rgba(34,211,238,0.2)';ctx.fill();}
     ctx.beginPath();ctx.arc(x,y,isLast?5:3.5,0,Math.PI*2);
-    ctx.fillStyle=isLast?'#22d3ee':'#006877';
-    ctx.fill();
+    ctx.fillStyle=isLast?'#22d3ee':'#006877'; ctx.fill();
     if(isLast){ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();}
   });
 }
 
-function renderHeatmap() {
+function renderHeatmap(){
   const run=runSessions();
   const wkKm={};
   for(let w=1;w<=TOTAL_WEEKS;w++) wkKm[w]=0;
   run.forEach(s=>{const w=weekOf(s.fecha);if(wkKm[w]!==undefined)wkKm[w]+=parseFloat(s.distancia_km)||0;});
   const maxKm=Math.max(...Object.values(wkKm),1);
-
-  const el=document.getElementById('heatmap-grid');
-  el.innerHTML=Object.entries(wkKm).map(([w,km])=>{
+  document.getElementById('heatmap-grid').innerHTML=Object.entries(wkKm).map(([w,km])=>{
     const pct=km/maxKm;
     const bg=pct===0?'bg-surface-container-high':pct<.25?'bg-primary/20':pct<.5?'bg-primary/40':pct<.75?'bg-primary/70':'bg-primary';
-    const title=`Sem ${w}: ${km.toFixed(1)} km`;
-    return `<div class="aspect-square ${bg} rounded-md cursor-default" title="${title}"></div>`;
+    return `<div class="aspect-square ${bg} rounded-md cursor-default hover:ring-2 hover:ring-primary/40 transition-all" title="Sem ${w}: ${km.toFixed(1)} km"></div>`;
   }).join('');
 }
 
-// ── SESSION CARD ──────────────────────────────────────────
-function zoneBar(s) {
+// ══════════════════════════════════════════════════════════
+//  SESSION CARD
+// ══════════════════════════════════════════════════════════
+function zoneBar(s){
   const keys=['z1','z2','z3','z4','z5'];
   const mins=keys.map(k=>parseMins(s[k]));
   const total=mins.reduce((a,b)=>a+b,0);
   if(!total) return '';
   return `<div class="flex h-1.5 rounded-full overflow-hidden gap-px my-2">
-    ${mins.map((m,i)=>m>0?`<div class="h-full rounded-sm" style="width:${(m/total*100).toFixed(1)}%;background:${ZONE_COLORS[i]}"></div>`:'').join('')}
+    ${mins.map((m,i)=>m>0?`<div class="h-full" style="width:${(m/total*100).toFixed(1)}%;background:${ZONE_COLORS[i]}"></div>`:'').join('')}
   </div>`;
 }
 
-function sessionCard(s,showDel){
+function sessionCard(s, showDel){
   const m=TYPE_META[s.tipo]||{label:s.tipo,icon:'fitness_center'};
   const badge=TYPE_BADGE[s.tipo]||'bg-surface-container text-on-surface-variant ring-1 ring-surface-container-high';
-  const iconColors=TYPE_COLORS[s.tipo]||'bg-surface-container text-on-surface-variant';
-  const dateDisp=new Date(s.fecha+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
-  const w=weekOf(s.fecha);
-  const ph=getPhase(w);
+  const iconC=TYPE_COLORS[s.tipo]||'bg-surface-container text-on-surface-variant';
+  const dateDisp=new Date(s.fecha+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'short'});
+  const w=weekOf(s.fecha), ph=getPhase(w);
+
+  // Pa:Hr badge
+  let pahrBadge='';
+  if(s.ritmo_prom&&s.fc_prom){
+    const p=paceToSec(s.ritmo_prom), hr=parseFloat(s.fc_prom);
+    if(p&&hr){ const pahr=((1000/p)/hr).toFixed(3); pahrBadge=`<span class="text-[9px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold">Pa:Hr ${pahr}</span>`; }
+  }
+  // RPE badge
+  const rpeBadge=s.rpe?`<span class="text-[9px] bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full font-bold">RPE ${s.rpe}</span>`:'';
+  // Karvonen zone badge
+  let kvBadge='';
+  if(s.fc_prom){
+    const hr=parseFloat(s.fc_prom);
+    const zones=karvonenZones();
+    const z=zones.find(z=>hr>=z.fc_lo&&hr<z.fc_hi)||zones[zones.length-1];
+    kvBadge=`<span class="karvonen-badge ${z.color} ${z.text}">${z.z}</span>`;
+  }
 
   let stats='';
   if(s.distancia_km&&parseFloat(s.distancia_km))stats+=`<span class="text-xs font-bold text-on-surface">${parseFloat(s.distancia_km).toFixed(2)} km</span>`;
-  if(s.duracion_min)stats+=`<span class="text-xs text-on-surface-variant">${s.duracion_min} min</span>`;
+  if(s.duracion_min&&parseFloat(s.duracion_min)){
+    const dm=parseFloat(s.duracion_min);
+    const hm=Math.floor(dm/60), mm=Math.floor(dm%60), ss=Math.round((dm%1)*60);
+    const durStr=hm>0?`${hm}h${String(mm).padStart(2,'0')}'`:`${mm}'${String(ss).padStart(2,'0')}"`;
+    stats+=`<span class="text-xs text-on-surface-variant">${durStr}</span>`;
+  }
   if(s.ritmo_prom)stats+=`<span class="text-xs text-on-surface-variant">${s.ritmo_prom}/km</span>`;
   if(s.fc_prom)stats+=`<span class="text-xs text-on-surface-variant">${s.fc_prom} LPM</span>`;
+  if(s.cadencia)stats+=`<span class="text-xs text-on-surface-variant">${s.cadencia} ppm</span>`;
   if(s.calorias)stats+=`<span class="text-xs text-on-surface-variant">${s.calorias} kcal</span>`;
 
-  return `<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm mb-3 hover:shadow-md transition-shadow duration-200">
-    <div class="flex items-start justify-between mb-3">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full ${iconColors} flex items-center justify-center flex-shrink-0">
-          <span class="material-symbols-outlined text-lg">${m.icon}</span>
+  return `<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm mb-3 hover:shadow-md transition-shadow duration-200">
+    <div class="flex items-start justify-between mb-2.5">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full ${iconC} flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined" style="font-size:18px">${m.icon}</span>
         </div>
         <div>
-          <span class="inline-block text-[10px] font-bold tracking-wide px-2 py-0.5 rounded-full ${badge}">${m.label}</span>
-          <div class="flex items-center gap-1.5 mt-0.5">
-            <span class="text-[10px] text-on-surface-variant/60 font-medium">Sem ${w} · ${ph.label}</span>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badge}">${m.label}</span>
+            ${kvBadge}${pahrBadge}${rpeBadge}
           </div>
+          <div class="text-[9px] text-on-surface-variant/60 mt-0.5">Sem ${w} · ${ph.label}</div>
         </div>
       </div>
       <div class="flex items-center gap-2">
         <span class="text-[10px] font-bold text-on-surface-variant">${dateDisp}</span>
-        ${showDel?`<button onclick="deleteSession('${s.id}')" class="w-7 h-7 rounded-full bg-error-container/30 text-on-error-container hover:bg-error-container transition-colors flex items-center justify-center">
-          <span class="material-symbols-outlined" style="font-size:16px">close</span>
-        </button>`:''}
+        ${showDel?`<button onclick="deleteSession('${s.id}')" class="w-6 h-6 rounded-full bg-error-container/30 text-on-error-container hover:bg-error-container transition-colors flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:14px">close</span></button>`:''}
       </div>
     </div>
-    ${stats?`<div class="flex flex-wrap gap-x-4 gap-y-1 mb-1">${stats}</div>`:''}
-    ${s.estructura?`<div class="text-xs font-mono text-on-surface-variant bg-surface-container-low px-3 py-2 rounded-lg mt-2 border-l-2 border-primary-container">${s.estructura}</div>`:''}
+    ${stats?`<div class="flex flex-wrap gap-x-3 gap-y-1 mb-1">${stats}</div>`:''}
+    ${s.estructura?`<div class="text-xs font-mono text-on-surface-variant bg-surface-container-low px-3 py-2 rounded-lg mt-2 border-l-2 border-primary-container leading-relaxed">${s.estructura}</div>`:''}
     ${s.movilidad_desc?`<div class="text-xs font-mono text-on-surface-variant bg-surface-container-low px-3 py-2 rounded-lg mt-2 border-l-2 border-violet-200">${s.movilidad_desc}</div>`:''}
     ${zoneBar(s)}
     ${s.notas?`<p class="text-xs text-on-surface-variant/60 italic mt-1">"${s.notas}"</p>`:''}
   </div>`;
 }
 
-// ── HISTORY ───────────────────────────────────────────────
-function renderHistory() {
+function renderHistory(){
   const el=document.getElementById('history-list');
-  if(!sessions.length){
-    el.innerHTML='<p class="text-center text-on-surface-variant/50 text-sm py-12 font-medium">No hay sesiones registradas.</p>';
-    return;
-  }
+  if(!sessions.length){el.innerHTML='<p class="text-center text-on-surface-variant/50 text-sm py-12">No hay sesiones registradas.</p>';return;}
   el.innerHTML=[...sessions].reverse().map(s=>sessionCard(s,true)).join('');
 }
 
-// ── FORM ──────────────────────────────────────────────────
-const TYPE_HOVER = {
-  fondo:     'bg-emerald-50 border-emerald-200 shadow-emerald-100',
-  rodaje:    'bg-cyan-50 border-cyan-200 shadow-cyan-100',
-  fartlek:   'bg-orange-50 border-orange-200 shadow-orange-100',
-  movilidad: 'bg-violet-50 border-violet-200 shadow-violet-100',
-  carrera:   'bg-rose-50 border-rose-200 shadow-rose-100'
-};
+// ══════════════════════════════════════════════════════════
+//  RPE BUTTONS
+// ══════════════════════════════════════════════════════════
+function renderRPEButtons(){
+  const colors=['text-emerald-400','text-emerald-500','text-lime-500','text-lime-600','text-yellow-500','text-amber-500','text-orange-500','text-red-400','text-red-500','text-red-600'];
+  document.getElementById('rpe-buttons').innerHTML=RPE_CONFIG.map(r=>
+    `<button type="button" id="rpe-btn-${r.v}" onclick="selectRPE(${r.v})"
+      class="rpe-btn flex flex-col items-center justify-center w-9 h-9 rounded-xl bg-surface-container-lowest text-xs font-black ${colors[r.v-1]} hover:scale-105 transition-all">
+      ${r.v}
+    </button>`
+  ).join('');
+}
+let selectedRPE=0;
+function selectRPE(v){
+  selectedRPE=v;
+  document.getElementById('f-rpe').value=v;
+  RPE_CONFIG.forEach(r=>{
+    const btn=document.getElementById('rpe-btn-'+r.v);
+    btn.classList.toggle('selected',r.v===v);
+    btn.classList.toggle('bg-surface-container',r.v===v);
+  });
+  const rpeDesc=RPE_CONFIG.find(r=>r.v===v);
+  document.getElementById('rpe-display').textContent=rpeDesc?`${v} — ${rpeDesc.desc}`:'—';
+}
 
+// ══════════════════════════════════════════════════════════
+//  FARTLEK REPS
+// ══════════════════════════════════════════════════════════
+function updateRepRows(){
+  const n=parseInt(document.getElementById('f-rep-count').value)||0;
+  const wrap=document.getElementById('rep-rows-wrap'), cont=document.getElementById('rep-rows');
+  if(n<1||n>20){wrap.classList.add('hidden');return;}
+  wrap.classList.remove('hidden');
+  cont.innerHTML=Array.from({length:n},(_,i)=>
+    `<div class="flex items-center gap-2.5">
+      <span class="text-[9px] font-black text-orange-600 bg-orange-100 rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">${i+1}</span>
+      <input type="text" id="rep-pace-${i}" placeholder="4:10" class="flex-1 bg-white border-0 border-b-2 border-orange-200 px-2 py-2 rounded-t-md text-sm font-bold text-on-surface placeholder:text-on-surface-variant/30" oninput="updateRepCalc(${i})"/>
+      <span class="text-[10px] text-on-surface-variant/60 w-16 text-right" id="rep-dist-${i}"></span>
+    </div>`
+  ).join('');
+}
+function updateRepCalc(i){
+  const durSec=paceToSec(document.getElementById('f-rep-dur').value);
+  const paceSec=paceToSec(document.getElementById(`rep-pace-${i}`).value);
+  const distEl=document.getElementById(`rep-dist-${i}`);
+  if(durSec>0&&paceSec>0){ distEl.textContent=Math.round((durSec/paceSec)*1000)+' m'; }
+  else distEl.textContent='';
+}
+function buildFartlekStructure(){
+  const desc=document.getElementById('f-struct-desc').value.trim();
+  const count=parseInt(document.getElementById('f-rep-count').value)||0;
+  const dur=document.getElementById('f-rep-dur').value.trim();
+  const rec=document.getElementById('f-rep-rec').value.trim();
+  const reps=Array.from({length:count},(_,i)=>{
+    const pe=document.getElementById(`rep-pace-${i}`);
+    const de=document.getElementById(`rep-dist-${i}`);
+    return pe?{n:i+1,pace:pe.value.trim(),dist:de?de.textContent.trim():''}:null;
+  }).filter(Boolean);
+  let str=desc?desc+' | ':'';
+  str+=`${count}×${dur} (rec ${rec})`;
+  if(reps.length) str+=' | '+reps.map(r=>`${r.n}: ${r.pace}/km${r.dist?' → '+r.dist:''}`).join(', ');
+  return str;
+}
+
+// ══════════════════════════════════════════════════════════
+//  FORM
+// ══════════════════════════════════════════════════════════
+const TYPE_HOVER={
+  fondo:'bg-emerald-50 border-emerald-200',rodaje:'bg-cyan-50 border-cyan-200',
+  fartlek:'bg-orange-50 border-orange-200',movilidad:'bg-violet-50 border-violet-200',carrera:'bg-rose-50 border-rose-200'
+};
 function selType(type){
   currentType=type;
   ['fondo','rodaje','fartlek','movilidad','carrera'].forEach(t=>{
     const btn=document.getElementById('tb-'+t);
-    btn.className='type-btn group flex flex-col items-center p-5 rounded-xl shadow-sm transition-all duration-200 active:scale-95 border '
-      +(t===type
-        ? TYPE_HOVER[t]+' shadow-md'
-        : 'bg-surface-container-lowest hover:'+TYPE_HOVER[t]+' border-transparent');
+    btn.className='type-btn flex flex-col items-center p-4 rounded-xl shadow-sm transition-all duration-200 active:scale-95 border '
+      +(t===type?TYPE_HOVER[t]+' shadow-md':'bg-surface-container-lowest border-transparent hover:'+TYPE_HOVER[t]);
   });
   const isRun=['fondo','rodaje','fartlek','carrera'].includes(type);
   document.getElementById('run-fields').classList.toggle('hidden',!isRun);
   document.getElementById('f-structure-wrap').classList.toggle('hidden',type!=='fartlek');
   document.getElementById('f-movilidad-wrap').classList.toggle('hidden',type!=='movilidad');
 }
-
 function clearForm(){
-  currentType='';
-  ['fondo','rodaje','fartlek','movilidad','carrera'].forEach(t=>{
-    document.getElementById('tb-'+t).className='type-btn group flex flex-col items-center p-5 bg-surface-container-lowest rounded-xl shadow-sm border border-transparent transition-all duration-200 active:scale-95';
-  });
-  ['f-dist','f-dur','f-pace','f-hr','f-cad','f-kcal','f-pow','f-structure','f-movilidad','f-notes','z1','z2','z3','z4','z5']
+  currentType=''; selectedRPE=0;
+  ['fondo','rodaje','fartlek','movilidad','carrera'].forEach(t=>document.getElementById('tb-'+t).className='type-btn flex flex-col items-center p-4 bg-surface-container-lowest rounded-xl shadow-sm border border-transparent transition-all duration-200 active:scale-95');
+  ['f-dist','f-dur','f-pace','f-hr','f-cad','f-kcal','f-pow','f-structure','f-movilidad','f-notes','z1','z2','z3','z4','z5','f-rpe','f-struct-desc','f-rep-count','f-rep-dur','f-rep-rec']
     .forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  const rr=document.getElementById('rep-rows'); if(rr) rr.innerHTML='';
+  const rw=document.getElementById('rep-rows-wrap'); if(rw) rw.classList.add('hidden');
+  document.getElementById('rpe-display').textContent='—';
+  RPE_CONFIG.forEach(r=>{const btn=document.getElementById('rpe-btn-'+r.v);if(btn)btn.classList.remove('selected','bg-surface-container');});
   document.getElementById('f-date').value=todayStr();
   document.getElementById('run-fields').classList.add('hidden');
   document.getElementById('f-structure-wrap').classList.add('hidden');
   document.getElementById('f-movilidad-wrap').classList.add('hidden');
 }
-
 async function saveSession(){
   if(isSaving) return;
-  if(!currentType){toast('Elegí el tipo de sesión.'); return;}
+  if(!currentType){toast('Elegí el tipo de sesión.',true);return;}
   const date=document.getElementById('f-date').value;
-  if(!date){toast('Ingresá la fecha.'); return;}
-
+  if(!date){toast('Ingresá la fecha.',true);return;}
   const sess={
     tipo:currentType, fecha:date,
     distancia_km:document.getElementById('f-dist').value,
-    duracion_min:document.getElementById('f-dur').value,
+    duracion_min:parseDuration(document.getElementById('f-dur').value),
     ritmo_prom:document.getElementById('f-pace').value,
     fc_prom:document.getElementById('f-hr').value,
     cadencia:document.getElementById('f-cad').value,
     calorias:document.getElementById('f-kcal').value,
     potencia:document.getElementById('f-pow').value,
-    estructura:document.getElementById('f-structure').value,
-    z1:document.getElementById('z1').value,
-    z2:document.getElementById('z2').value,
-    z3:document.getElementById('z3').value,
-    z4:document.getElementById('z4').value,
+    estructura:currentType==='fartlek'?buildFartlekStructure():document.getElementById('f-structure').value,
+    z1:document.getElementById('z1').value, z2:document.getElementById('z2').value,
+    z3:document.getElementById('z3').value, z4:document.getElementById('z4').value,
     z5:document.getElementById('z5').value,
     movilidad_desc:document.getElementById('f-movilidad').value,
+    rpe:document.getElementById('f-rpe').value,
     notas:document.getElementById('f-notes').value
   };
-
   isSaving=true;
   const btn=document.getElementById('save-btn');
   btn.textContent='GUARDANDO...'; btn.style.opacity='.7';
-
   try{
     const res=await apiPost({action:'save',session:sess});
-    if(res.ok){
-      toast('✓ Sesión guardada');
-      clearForm();
-      await loadSessions();
-    } else { toast('Error: '+(res.error||'desconocido'),true); }
-  } catch(e){ toast('Error de conexión',true); }
-  finally{ isSaving=false; btn.textContent='GUARDAR SESIÓN'; btn.style.opacity='1'; }
+    if(res.ok){toast('✓ Sesión guardada');clearForm();await loadSessions();}
+    else toast('Error: '+(res.error||'desconocido'),true);
+  }catch(e){toast('Error de conexión',true);}
+  finally{isSaving=false;btn.textContent='GUARDAR SESIÓN';btn.style.opacity='1';}
 }
-
 async function deleteSession(id){
   if(!confirm('¿Eliminar esta sesión?')) return;
   try{
     const res=await apiPost({action:'delete',id});
-    if(res.ok){ toast('Sesión eliminada'); await loadSessions(); renderHistory(); }
+    if(res.ok){toast('Sesión eliminada');await loadSessions();renderHistory();}
     else toast('Error al eliminar',true);
-  } catch(e){ toast('Error de conexión',true); }
+  }catch(e){toast('Error de conexión',true);}
 }
 
-// ── TOAST ─────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════════════════
 let toastTimer;
-function toast(msg, isErr=false){
-  const el=document.getElementById('toast');
-  const inner=document.getElementById('toast-inner');
+function toast(msg,isErr=false){
+  const el=document.getElementById('toast'), inner=document.getElementById('toast-inner');
   inner.textContent=msg;
-  inner.className=`${isErr?'bg-error-container text-on-error-container':'bg-inverse-surface text-inverse-on-surface'} px-5 py-3 rounded-full text-sm font-bold shadow-xl`;
+  inner.className=(isErr?'bg-error-container text-on-error-container':'bg-inverse-surface text-inverse-on-surface')+' px-5 py-3 rounded-full text-sm font-bold shadow-xl';
   el.classList.remove('translate-y-12','opacity-0');
   el.classList.add('translate-y-0','opacity-100');
   clearTimeout(toastTimer);
